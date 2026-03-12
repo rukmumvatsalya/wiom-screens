@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiom — Getting Started Flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-600: #D9008D;
+      --brand-100: #FFE5F6;
+      --neutral-900: #161021;
+      --neutral-800: #352D42;
+      --neutral-700: #665E75;
+      --neutral-500: #A7A1B2;
+      --neutral-300: #D7D3E0;
+      --neutral-200: #E8E4F0;
+      --neutral-100: #F1EDF7;
+      --neutral-white: #FAF9FC;
+      --positive-600: #008043;
+      --positive-100: #E1FAED;
+    }
+
+    body {
+      font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
+      background: #E8E4F0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 40px;
+      min-height: 100vh;
+      flex-wrap: wrap;
+    }
+
+    .screen-wrapper { display: flex; flex-direction: column; align-items: center; }
+
+    .label {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: var(--neutral-700);
+      margin-bottom: 12px; letter-spacing: 0.03em;
+    }
+
+    /* ── Phone Frame ── */
+    .phone {
+      width: 360px; height: 720px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      display: flex; flex-direction: column;
+    }
+
+    /* ── Status Bar ── */
+    .status-bar {
+      height: 24px; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 12px; font-weight: 600; color: var(--neutral-900);
+      flex-shrink: 0;
+    }
+    .status-bar .icons { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+
+    /* ── Top Bar ── */
+    .top-bar {
+      height: 52px; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .top-bar .back {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .top-bar .back svg { color: var(--neutral-800); }
+    .top-bar .actions { display: flex; align-items: center; gap: 8px; }
+    .top-bar .icon-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--neutral-100);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .top-bar .icon-btn svg { color: var(--neutral-800); }
+
+    /* ── Progress Bar ── */
+    .progress-bar {
+      height: 3px; margin: 0 16px;
+      background: var(--neutral-200); border-radius: 888px; flex-shrink: 0;
+    }
+    .progress-bar .fill { height: 100%; border-radius: 888px; background: var(--brand-600); }
+
+    /* ── Content Area ── */
+    .content {
+      flex: 1; padding: 20px 16px 16px;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* ── Typography ── */
+    .headline {
+      font-size: 22px; font-weight: 700; line-height: 30px;
+      color: var(--neutral-900); text-wrap: balance;
+    }
+    .sub-headline {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-700); margin-top: 6px;
+    }
+
+    /* ── Steps (Screen 1) ── */
+    .steps { margin-top: 28px; display: flex; flex-direction: column; }
+    .step {
+      display: flex; gap: 14px; align-items: flex-start;
+      position: relative; padding-bottom: 24px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 13px; top: 32px; bottom: 0;
+      width: 1.5px; background: var(--neutral-200);
+    }
+    .step-number {
+      width: 28px; height: 28px; min-width: 28px;
+      border-radius: 888px; background: var(--neutral-100);
+      color: var(--neutral-700);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 15px; font-weight: 600; line-height: 22px;
+      color: var(--neutral-900);
+    }
+    .step-desc {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700); margin-top: 3px;
+    }
+
+    /* ── Bottom CTA ── */
+    .bottom-cta {
+      padding: 12px 16px 16px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 8px;
+      border-top: 1px solid var(--neutral-200);
+    }
+    .btn-primary {
+      width: 100%; height: 48px; border: none; border-radius: 24px;
+      background: var(--brand-600); color: #FFFFFF;
+      font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
+      font-size: 16px; font-weight: 700; line-height: 24px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* ── Booking Card (Screen 2) ── */
+    .booking-card {
+      margin-top: 20px;
+      border: 1px solid var(--neutral-200);
+      border-radius: 16px; overflow: hidden;
+    }
+    .booking-header {
+      padding: 16px 16px 14px;
+    }
+    .booking-label {
+      font-size: 12px; font-weight: 600; line-height: 16px;
+      color: var(--neutral-500); letter-spacing: 0.04em;
+    }
+    .booking-amount {
+      font-size: 28px; font-weight: 700; line-height: 36px;
+      color: var(--neutral-900); margin-top: 4px;
+    }
+    .booking-purpose {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-700); margin-top: 2px;
+    }
+    .booking-divider { height: 1px; background: var(--neutral-200); border: none; }
+
+    .booking-body {
+      padding: 14px 16px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .booking-body-label {
+      font-size: 12px; font-weight: 600; line-height: 16px;
+      color: var(--neutral-500);
+    }
+    .booking-item {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .booking-icon {
+      width: 20px; height: 20px; min-width: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--neutral-500);
+    }
+    .booking-item-text {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-800);
+    }
+    .booking-item-text strong { font-weight: 600; }
+
+    /* ── Reassurance ── */
+    .reassurance {
+      margin-top: 16px; padding: 10px 14px;
+      background: var(--neutral-100); border-radius: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .reassurance svg { color: var(--positive-600); min-width: 16px; }
+    .reassurance .text {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700);
+    }
+    .reassurance .text strong { font-weight: 600; color: var(--neutral-800); }
+
+    /* ── Refundable Badge ── */
+    .refundable-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 4px; padding: 2px 8px;
+      background: var(--positive-100); border-radius: 4px;
+      font-size: 12px; font-weight: 600; color: var(--positive-600);
+    }
+
+    /* ── Payment Card (Screen 3) ── */
+    .payment-card {
+      margin-top: 20px;
+      border: 1px solid var(--neutral-200);
+      border-radius: 16px; padding: 16px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .payment-item { display: flex; flex-direction: column; gap: 4px; }
+    .payment-badge {
+      display: inline-flex; align-items: center;
+      height: 20px; padding: 0 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; line-height: 16px; width: fit-content;
+      background: var(--neutral-100); color: var(--neutral-700);
+    }
+    .payment-row { display: flex; align-items: baseline; gap: 8px; }
+    .payment-amount {
+      font-size: 20px; font-weight: 700; line-height: 26px;
+      color: var(--neutral-900);
+    }
+    .payment-amount--muted { color: var(--neutral-500); }
+    .payment-dash { font-size: 14px; color: var(--neutral-300); }
+    .payment-desc {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700);
+    }
+    .payment-sub {
+      font-size: 12px; font-weight: 400; line-height: 16px;
+      color: var(--neutral-700);
+    }
+    .payment-sub .highlight { color: var(--positive-600); font-weight: 600; }
+    .payment-divider { height: 1px; background: var(--neutral-200); border: none; }
+
+    /* ── Info Note ── */
+    .info-note {
+      margin-top: 14px; padding: 10px 14px;
+      background: var(--neutral-100); border-radius: 10px;
+    }
+    .info-note .text {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700);
+    }
+
+    /* ── Social Proof (rotating) ── */
+    .social-proof {
+      margin-top: auto; padding-top: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--neutral-500);
+    }
+    .social-proof .dot {
+      width: 5px; height: 5px; border-radius: 888px;
+      background: var(--positive-600); flex-shrink: 0;
+    }
+    .social-proof-window {
+      height: 20px; overflow: hidden; flex-shrink: 0;
+    }
+    .social-proof-track {
+      display: flex; flex-direction: column;
+      animation: rotateHooks 12s linear infinite;
+    }
+    .social-proof-item {
+      height: 20px; line-height: 20px;
+      white-space: nowrap;
+    }
+    @keyframes rotateHooks {
+      0%, 22%   { transform: translateY(0); }
+      25%, 47%  { transform: translateY(-20px); }
+      50%, 72%  { transform: translateY(-40px); }
+      75%, 97%  { transform: translateY(-60px); }
+      100%      { transform: translateY(-60px); }
+    }
+
+    /* ── Flow Arrow ── */
+    .flow-arrow {
+      display: flex; align-items: center; justify-content: center;
+      align-self: center; margin-top: 340px; color: var(--neutral-300);
+    }
+    .flow-arrow svg { width: 28px; height: 28px; }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════ SCREEN 1 — HOW IT WORKS ════════════════ -->
+  <div class="screen-wrapper">
+    <div class="label">Screen 1 — कैसे लगेगा नेट</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span>04:35 PM</span>
+        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+      </div>
+
+      <div class="top-bar">
+        <div class="back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </div>
+        <div class="actions">
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar"><div class="fill" style="width: 25%"></div></div>
+
+      <div class="content">
+        <h1 class="headline">घर पर नेट लगवाना बहुत आसान है</h1>
+        <p class="sub-headline">हमारे इंजीनियर आपके घर आकर सब सेटअप करते हैं</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-title">विज़िट बुक करें</div>
+              <div class="step-desc">₹100 देकर इंजीनियर की विज़िट बुक करें — वो आपके घर आएंगे</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-title">इंजीनियर सब सेटअप करेंगे</div>
+              <div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-title">नेट चालू — रिचार्ज बाद में</div>
+              <div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-proof">
+          <div class="dot"></div>
+          <div class="social-proof-window">
+            <div class="social-proof-track">
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
+              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-cta">
+        <button class="btn-primary">आगे बढ़ें</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="flow-arrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <!-- ════════════════ SCREEN 2 — VISIT BOOKING ════════════════ -->
+  <div class="screen-wrapper">
+    <div class="label">Screen 2 — विज़िट बुकिंग</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span>04:35 PM</span>
+        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+      </div>
+
+      <div class="top-bar">
+        <div class="back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </div>
+        <div class="actions">
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar"><div class="fill" style="width: 50%"></div></div>
+
+      <div class="content">
+        <h1 class="headline">इंजीनियर की विज़िट बुक करें</h1>
+        <p class="sub-headline">नेट सेटअप शुरू करने के लिए पहला कदम</p>
+
+        <!-- Booking Card — compact layout -->
+        <div class="booking-card">
+          <!-- Header: what the ₹100 is for -->
+          <div class="booking-header">
+            <span class="booking-label">विज़िट बुकिंग चार्ज</span>
+            <div class="booking-amount">₹100</div>
+            <span class="booking-purpose">इंजीनियर आपके घर आएंगे और नेट बॉक्स लगाएंगे</span>
+          </div>
+
+          <hr class="booking-divider">
+
+          <!-- Body: single-line items (no sub-descriptions) -->
+          <div class="booking-body">
+            <span class="booking-body-label">विज़िट में क्या होगा</span>
+
+            <div class="booking-item">
+              <div class="booking-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <span class="booking-item-text">नेट बॉक्स लगेगा</span>
+            </div>
+
+            <div class="booking-item">
+              <div class="booking-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+              </div>
+              <span class="booking-item-text">नेट चालू होगा — बस 30 मिनट</span>
+            </div>
+
+            <div class="booking-item">
+              <div class="booking-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="booking-item-text">नेट बॉक्स जमा राशि <strong>₹300</strong> (रिफ़ंडेबल)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reassurance — compact -->
+        <div class="reassurance">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          <span class="text">रिचार्ज अभी नहीं — <strong>बाद में, जब चाहें</strong></span>
+        </div>
+
+        <div class="social-proof">
+          <div class="dot"></div>
+          <div class="social-proof-window">
+            <div class="social-proof-track">
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
+              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-cta">
+        <button class="btn-primary">पूरा खर्चा देखें</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="flow-arrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </div>
+
+  <!-- ════════════════ SCREEN 3 — FULL COST BREAKDOWN ════════════════ -->
+  <div class="screen-wrapper">
+    <div class="label">Screen 3 — पूरा खर्चा</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span>04:35 PM</span>
+        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+      </div>
+
+      <div class="top-bar">
+        <div class="back">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </div>
+        <div class="actions">
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+
+      <div class="content">
+        <h1 class="headline">पूरा खर्चा — एक नज़र में</h1>
+        <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
+
+        <div class="payment-card">
+          <!-- Now -->
+          <div class="payment-item">
+            <div class="payment-badge">अभी — विज़िट बुकिंग</div>
+            <div class="payment-row">
+              <span class="payment-amount">₹100</span>
+              <span class="payment-dash">—</span>
+              <span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span>
+            </div>
+          </div>
+
+          <hr class="payment-divider">
+
+          <!-- At visit -->
+          <div class="payment-item">
+            <div class="payment-badge">विज़िट के समय</div>
+            <div class="payment-row">
+              <span class="payment-amount">₹300</span>
+              <span class="payment-dash">—</span>
+              <span class="payment-desc">नेट बॉक्स जमा राशि</span>
+            </div>
+            <div class="refundable-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              बॉक्स वापस करें → रकम वापस
+            </div>
+          </div>
+
+          <hr class="payment-divider">
+
+          <!-- Later -->
+          <div class="payment-item">
+            <div class="payment-badge">बाद में — जब चाहें</div>
+            <div class="payment-row">
+              <span class="payment-amount payment-amount--muted">₹19+</span>
+              <span class="payment-dash">—</span>
+              <span class="payment-desc">रिचार्ज (1 दिन से शुरू)</span>
+            </div>
+            <div class="payment-sub">
+              कोई लंबा प्लान ज़रूरी नहीं — <span class="highlight">रोज़ का रिचार्ज भी चलता है</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info note -->
+        <div class="info-note">
+          <span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span>
+        </div>
+
+        <div class="social-proof">
+          <div class="dot"></div>
+          <div class="social-proof-window">
+            <div class="social-proof-track">
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
+              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
+              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-cta">
+        <button class="btn-primary">₹100 देकर विज़िट बुक करें</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

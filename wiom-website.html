@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiom — रिचार्ज-वाला घर का नेट</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-600: #D9008D;
+      --brand-500: #E6339F;
+      --brand-100: #FFE5F6;
+      --brand-50: #FFF5FB;
+      --purple-900: #1A0A2E;
+      --purple-800: #2D1B4E;
+      --purple-700: #443152;
+      --neutral-900: #161021;
+      --neutral-800: #352D42;
+      --neutral-700: #665E75;
+      --neutral-500: #A7A1B2;
+      --neutral-300: #D7D3E0;
+      --neutral-200: #E8E4F0;
+      --neutral-100: #F1EDF7;
+      --neutral-50: #F8F6FB;
+      --white: #FFFFFF;
+      --positive-600: #008043;
+      --positive-100: #E1FAED;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
+      color: var(--neutral-900);
+      background: var(--white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 16px; }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 24px; font-weight: 800;
+      color: var(--brand-600);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 600;
+      color: var(--neutral-700);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--brand-600); }
+    .nav-cta {
+      height: 40px; padding: 0 24px;
+      border: none; border-radius: 20px;
+      background: var(--brand-600); color: var(--white);
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex; align-items: center;
+    }
+    .nav-cta:hover { background: var(--brand-500); }
+    .nav-phone {
+      font-size: 14px; font-weight: 600;
+      color: var(--neutral-800);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-phone svg { color: var(--brand-600); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-inner { padding: 0 16px; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(180deg, var(--white) 0%, var(--neutral-50) 100%);
+    }
+    .hero-inner {
+      display: flex; align-items: center; gap: 64px;
+    }
+    .hero-content { flex: 1; }
+    .hero-visual {
+      flex: 0 0 420px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px;
+      background: var(--positive-100);
+      color: var(--positive-600);
+      font-size: 13px; font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--positive-600);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: 48px; font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.02em;
+      color: var(--neutral-900);
+    }
+    .hero h1 .accent { color: var(--brand-600); }
+    .hero-sub {
+      font-size: 18px; font-weight: 400;
+      line-height: 1.6; color: var(--neutral-700);
+      margin-top: 16px; max-width: 480px;
+    }
+    .hero-actions {
+      margin-top: 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .btn-large {
+      height: 52px; padding: 0 32px;
+      border: none; border-radius: 26px;
+      background: var(--brand-600); color: var(--white);
+      font-family: inherit; font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .btn-large:hover { background: var(--brand-500); transform: translateY(-1px); }
+    .btn-outline {
+      height: 52px; padding: 0 32px;
+      border: 2px solid var(--neutral-200); border-radius: 26px;
+      background: var(--white); color: var(--neutral-800);
+      font-family: inherit; font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .btn-outline:hover { border-color: var(--brand-600); color: var(--brand-600); }
+    .hero-stats {
+      margin-top: 48px;
+      display: flex; gap: 48px;
+    }
+    .hero-stat {
+      display: flex; flex-direction: column;
+    }
+    .hero-stat-value {
+      font-size: 28px; font-weight: 800;
+      color: var(--neutral-900);
+    }
+    .hero-stat-label {
+      font-size: 13px; font-weight: 400;
+      color: var(--neutral-500); margin-top: 2px;
+    }
+
+    /* Hero illustration placeholder */
+    .hero-illustration {
+      width: 380px; height: 380px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--brand-100) 0%, var(--neutral-100) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; position: relative; overflow: hidden;
+    }
+    .hero-illustration::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(217,0,141,0.08);
+    }
+    .hero-illustration .device {
+      width: 120px; height: 80px;
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-illustration .wifi-waves {
+      color: var(--brand-600);
+    }
+    .hero-illustration .label {
+      font-size: 14px; font-weight: 600;
+      color: var(--neutral-700);
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 100px 0 48px; }
+      .hero-inner { flex-direction: column; gap: 40px; text-align: center; }
+      .hero-visual { flex: none; width: 100%; }
+      .hero h1 { font-size: 32px; }
+      .hero-sub { font-size: 16px; max-width: 100%; }
+      .hero-actions { justify-content: center; flex-wrap: wrap; }
+      .hero-stats { justify-content: center; gap: 32px; }
+      .hero-illustration { width: 280px; height: 280px; }
+    }
+
+    /* ── Section Base ── */
+    section {
+      padding: 80px 0;
+    }
+    .section-label {
+      font-size: 13px; font-weight: 700;
+      color: var(--brand-600);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 36px; font-weight: 800;
+      line-height: 1.2; letter-spacing: -0.01em;
+      color: var(--neutral-900);
+    }
+    .section-sub {
+      font-size: 16px; font-weight: 400;
+      line-height: 1.6; color: var(--neutral-700);
+      margin-top: 12px; max-width: 560px;
+    }
+    @media (max-width: 768px) {
+      section { padding: 56px 0; }
+      .section-title { font-size: 26px; }
+    }
+
+    /* ── How It Works ── */
+    .how-it-works { background: var(--neutral-50); }
+    .how-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .how-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px 24px;
+      position: relative;
+      border: 1px solid var(--neutral-200);
+      transition: border-color 0.2s;
+    }
+    .how-card:hover { border-color: var(--brand-600); }
+    .how-number {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 16px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .how-card:hover .how-number {
+      background: var(--brand-100);
+      color: var(--brand-600);
+    }
+    .how-card h3 {
+      font-size: 18px; font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 8px;
+    }
+    .how-card p {
+      font-size: 14px; font-weight: 400;
+      line-height: 1.6; color: var(--neutral-700);
+    }
+    .how-card .how-meta {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--neutral-100);
+      font-size: 13px; font-weight: 600;
+      color: var(--neutral-500);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .how-card .how-meta .amount {
+      color: var(--neutral-900); font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .how-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Plans ── */
+    .plans-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .plan-card {
+      background: var(--white);
+      border: 1px solid var(--neutral-200);
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex; flex-direction: column;
+      transition: all 0.2s;
+    }
+    .plan-card:hover { border-color: var(--brand-600); }
+    .plan-card.featured {
+      border: 2px solid var(--brand-600);
+      position: relative;
+    }
+    .plan-popular {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      padding: 4px 16px; border-radius: 12px;
+      background: var(--brand-600); color: var(--white);
+      font-size: 12px; font-weight: 700;
+      white-space: nowrap;
+    }
+    .plan-duration {
+      font-size: 13px; font-weight: 600;
+      color: var(--neutral-500);
+      margin-bottom: 8px;
+    }
+    .plan-price {
+      display: flex; align-items: baseline; gap: 4px;
+    }
+    .plan-amount {
+      font-size: 36px; font-weight: 800;
+      color: var(--neutral-900);
+    }
+    .plan-unit {
+      font-size: 14px; font-weight: 400;
+      color: var(--neutral-500);
+    }
+    .plan-data {
+      margin-top: 4px;
+      font-size: 14px; font-weight: 600;
+      color: var(--neutral-700);
+    }
+    .plan-features {
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--neutral-100);
+      display: flex; flex-direction: column; gap: 10px;
+      flex: 1;
+    }
+    .plan-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; color: var(--neutral-700);
+    }
+    .plan-feature svg { color: var(--positive-600); flex-shrink: 0; }
+    .plan-cta {
+      margin-top: 24px;
+      height: 44px; border: none; border-radius: 22px;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .plan-cta--primary {
+      background: var(--brand-600); color: var(--white);
+    }
+    .plan-cta--primary:hover { background: var(--brand-500); }
+    .plan-cta--secondary {
+      background: var(--neutral-100); color: var(--neutral-800);
+    }
+    .plan-cta--secondary:hover { background: var(--neutral-200); }
+    .plans-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 14px; color: var(--neutral-500);
+    }
+    @media (max-width: 768px) {
+      .plans-grid { grid-template-columns: 1fr; max-width: 360px; margin-left: auto; margin-right: auto; }
+    }
+
+    /* ── Why Wiom ── */
+    .why-wiom { background: var(--neutral-50); }
+    .why-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .why-card {
+      background: var(--white);
+      border: 1px solid var(--neutral-200);
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .why-icon {
+      width: 44px; height: 44px; min-width: 44px;
+      border-radius: 12px;
+      background: var(--neutral-100);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--neutral-700);
+    }
+    .why-card h3 {
+      font-size: 16px; font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 4px;
+    }
+    .why-card p {
+      font-size: 14px; font-weight: 400;
+      line-height: 1.5; color: var(--neutral-700);
+    }
+    @media (max-width: 768px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Coverage ── */
+    .coverage-cities {
+      margin-top: 40px;
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    .city-tag {
+      padding: 10px 20px;
+      border-radius: 12px;
+      background: var(--neutral-100);
+      font-size: 15px; font-weight: 600;
+      color: var(--neutral-800);
+      transition: all 0.2s;
+    }
+    .city-tag:hover {
+      background: var(--brand-100);
+      color: var(--brand-600);
+    }
+    .coverage-note {
+      margin-top: 24px;
+      font-size: 14px; color: var(--neutral-500);
+    }
+    .coverage-note a {
+      color: var(--brand-600); font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── Testimonials ── */
+    .testimonials { background: var(--neutral-50); }
+    .testimonials-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--neutral-200);
+      border-radius: 20px;
+      padding: 28px 24px;
+    }
+    .testimonial-stars {
+      display: flex; gap: 2px;
+      color: #F5A623;
+      margin-bottom: 16px;
+    }
+    .testimonial-text {
+      font-size: 15px; font-weight: 400;
+      line-height: 1.6; color: var(--neutral-800);
+      font-style: italic;
+    }
+    .testimonial-author {
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--neutral-100);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--neutral-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+      color: var(--neutral-700);
+    }
+    .testimonial-name {
+      font-size: 14px; font-weight: 600;
+      color: var(--neutral-900);
+    }
+    .testimonial-location {
+      font-size: 12px; font-weight: 400;
+      color: var(--neutral-500);
+    }
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      margin-top: 40px;
+      max-width: 720px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .faq-item {
+      border: 1px solid var(--neutral-200);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: var(--neutral-300); }
+    .faq-q {
+      padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer;
+      font-size: 15px; font-weight: 600;
+      color: var(--neutral-900);
+      background: none; border: none; width: 100%;
+      font-family: inherit; text-align: left;
+    }
+    .faq-q svg {
+      color: var(--neutral-500); flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .faq-a {
+      padding: 0 24px 20px;
+      font-size: 14px; font-weight: 400;
+      line-height: 1.6; color: var(--neutral-700);
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-q svg { transform: rotate(45deg); }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      padding: 80px 0;
+      background: var(--purple-900);
+      color: var(--white);
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-size: 36px; font-weight: 800;
+      line-height: 1.2;
+    }
+    .cta-banner p {
+      font-size: 16px; font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      margin-top: 12px;
+    }
+    .cta-banner .btn-large {
+      margin-top: 32px;
+    }
+    .cta-banner-trust {
+      margin-top: 24px;
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.5);
+    }
+    .cta-banner-trust span {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cta-banner-trust svg { opacity: 0.5; }
+    @media (max-width: 768px) {
+      .cta-banner h2 { font-size: 26px; }
+      .cta-banner-trust { flex-direction: column; gap: 8px; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--neutral-200);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand {
+      font-size: 24px; font-weight: 800;
+      color: var(--brand-600);
+      margin-bottom: 12px;
+    }
+    .footer-desc {
+      font-size: 14px; color: var(--neutral-500);
+      line-height: 1.5;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700;
+      color: var(--neutral-500);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 14px; font-weight: 400;
+      color: var(--neutral-700);
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--brand-600); }
+    .footer-bottom {
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid var(--neutral-100);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: var(--neutral-500);
+    }
+    .footer-social {
+      display: flex; gap: 16px;
+    }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--neutral-100);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--neutral-700);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { background: var(--brand-100); color: var(--brand-600); }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    /* ── Utility ── */
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ NAV ═══════════ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">wiom</a>
+      <ul class="nav-links">
+        <li><a href="#how">कैसे काम करता है</a></li>
+        <li><a href="#plans">प्लान</a></li>
+        <li><a href="#why">क्यों Wiom</a></li>
+        <li><a href="#coverage">कहाँ उपलब्ध</a></li>
+        <li>
+          <a href="tel:8880322222" class="nav-phone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            8880322222
+          </a>
+        </li>
+      </ul>
+      <a href="#plans" class="nav-cta">नेट शुरू करें</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <div class="dot"></div>
+            लाखों घरों में नेट चालू
+          </div>
+          <h1>
+            घर का नेट,<br>
+            <span class="accent">रिचार्ज जब चाहें</span>
+          </h1>
+          <p class="hero-sub">
+            कोई लंबा प्लान नहीं, कोई बंधन नहीं। आज चाहिए तो आज का रिचार्ज करें, कल नहीं चाहिए तो मत करें। बस इतना सा।
+          </p>
+          <div class="hero-actions">
+            <a href="#plans" class="btn-large">
+              नेट शुरू करें
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#how" class="btn-outline">कैसे काम करता है</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-value">₹5</span>
+              <span class="hero-stat-label">से शुरू, 1 दिन के लिए</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">30 मिनट</span>
+              <span class="hero-stat-label">में नेट सेटअप</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value">11+ शहर</span>
+              <span class="hero-stat-label">में उपलब्ध</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-illustration">
+            <div class="device">
+              <svg class="wifi-waves" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1.5"/></svg>
+            </div>
+            <span class="label">नेट बॉक्स — आपका घर का नेट</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section class="how-it-works" id="how">
+    <div class="container">
+      <div class="section-label">कैसे काम करता है</div>
+      <h2 class="section-title">3 आसान स्टेप में नेट चालू</h2>
+      <p class="section-sub">आपको कहीं जाने की ज़रूरत नहीं — हमारे इंजीनियर सब कुछ आपके घर पर करते हैं</p>
+
+      <div class="how-grid">
+        <!-- Step 1 -->
+        <div class="how-card">
+          <div class="how-number">1</div>
+          <h3>विज़िट बुक करें</h3>
+          <p>₹100 देकर इंजीनियर की विज़िट बुक करें। वो आपके घर आएंगे — आपको कहीं जाना नहीं है।</p>
+          <div class="how-meta">
+            बुकिंग चार्ज: <span class="amount">₹100</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="how-card">
+          <div class="how-number">2</div>
+          <h3>नेट सेटअप हो जाएगा</h3>
+          <p>इंजीनियर नेट बॉक्स लगाएंगे, नेट चालू करेंगे। बस 30 मिनट में सब तैयार।</p>
+          <div class="how-meta">
+            नेट बॉक्स जमा राशि: <span class="amount">₹300</span> (रिफ़ंडेबल)
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="how-card">
+          <div class="how-number">3</div>
+          <h3>रिचार्ज करें, नेट चलाएं</h3>
+          <p>जब चाहें तब रिचार्ज करें — 1 दिन, 7 दिन, या 28 दिन। कोई बंधन नहीं।</p>
+          <div class="how-meta">
+            रिचार्ज: <span class="amount">₹5 से शुरू</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PLANS ═══════════ -->
+  <section id="plans">
+    <div class="container">
+      <div class="section-label text-center">प्लान</div>
+      <h2 class="section-title text-center">अपनी ज़रूरत का प्लान चुनें</h2>
+      <p class="section-sub text-center mx-auto">कोई लंबा कॉन्ट्रैक्ट नहीं — जब चाहें बदलें, जब चाहें रुकें</p>
+
+      <div class="plans-grid">
+        <!-- Plan 1 -->
+        <div class="plan-card">
+          <div class="plan-duration">1 दिन</div>
+          <div class="plan-price">
+            <span class="plan-amount">₹5</span>
+          </div>
+          <div class="plan-data">1 GB डेटा</div>
+          <div class="plan-features">
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              पूरे घर में नेट
+            </div>
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              कोई लिमिट नहीं — FUP के बाद भी चलेगा
+            </div>
+          </div>
+          <button class="plan-cta plan-cta--secondary">यह प्लान लें</button>
+        </div>
+
+        <!-- Plan 2 (Featured) -->
+        <div class="plan-card featured">
+          <div class="plan-popular">सबसे लोकप्रिय</div>
+          <div class="plan-duration">7 दिन</div>
+          <div class="plan-price">
+            <span class="plan-amount">₹20</span>
+          </div>
+          <div class="plan-data">10 GB डेटा</div>
+          <div class="plan-features">
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              पूरे घर में नेट
+            </div>
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              स्ट्रीमिंग, गेमिंग, वर्क — सब चलेगा
+            </div>
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              सबसे ज़्यादा लोग यही लेते हैं
+            </div>
+          </div>
+          <button class="plan-cta plan-cta--primary">यह प्लान लें</button>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="plan-card">
+          <div class="plan-duration">28 दिन</div>
+          <div class="plan-price">
+            <span class="plan-amount">₹500</span>
+          </div>
+          <div class="plan-data">अनलिमिटेड डेटा</div>
+          <div class="plan-features">
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              पूरे घर में नेट
+            </div>
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              पूरा महीना अनलिमिटेड
+            </div>
+            <div class="plan-feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              पूरे परिवार के लिए
+            </div>
+          </div>
+          <button class="plan-cta plan-cta--secondary">यह प्लान लें</button>
+        </div>
+      </div>
+      <p class="plans-note">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ WHY WIOM ═══════════ -->
+  <section class="why-wiom" id="why">
+    <div class="container">
+      <div class="section-label">क्यों Wiom</div>
+      <h2 class="section-title">आम नेट से Wiom अलग कैसे</h2>
+      <p class="section-sub">कोई छुपा हुआ चार्ज नहीं, कोई लंबा कॉन्ट्रैक्ट नहीं</p>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <h3>कोई बंधन नहीं</h3>
+            <p>महीने का प्लान लेना ज़रूरी नहीं। 1 दिन का रिचार्ज भी चलता है। नहीं चाहिए तो बंद करें — कोई पेनल्टी नहीं।</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3>पैसा सुरक्षित</h3>
+            <p>नेट बॉक्स की ₹300 जमा राशि पूरी तरह रिफ़ंडेबल है। बॉक्स वापस करें, रकम वापस पाएं।</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <h3>घर पर सेटअप</h3>
+            <p>इंजीनियर आपके घर आते हैं, नेट बॉक्स लगाते हैं, नेट चालू करते हैं। आपको कहीं जाने की ज़रूरत नहीं।</p>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <h3>हिंदी में मदद</h3>
+            <p>कस्टमर केयर हिंदी और English दोनों में उपलब्ध है। कॉल करें 8880322222 — कभी भी।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ COVERAGE ═══════════ -->
+  <section id="coverage">
+    <div class="container">
+      <div class="section-label">कहाँ उपलब्ध है</div>
+      <h2 class="section-title">इन शहरों में Wiom नेट मिलता है</h2>
+      <p class="section-sub">और भी शहरों में जल्द आ रहे हैं</p>
+
+      <div class="coverage-cities">
+        <span class="city-tag">दिल्ली</span>
+        <span class="city-tag">नोएडा</span>
+        <span class="city-tag">गाज़ियाबाद</span>
+        <span class="city-tag">गुरुग्राम</span>
+        <span class="city-tag">फ़रीदाबाद</span>
+        <span class="city-tag">मुंबई</span>
+        <span class="city-tag">ठाणे</span>
+        <span class="city-tag">मेरठ</span>
+        <span class="city-tag">मुज़फ़्फ़रनगर</span>
+        <span class="city-tag">हापुड़</span>
+        <span class="city-tag">मोदीनगर</span>
+      </div>
+      <p class="coverage-note">
+        अपने एरिया में उपलब्धता चेक करें — <a href="#">Wiom ऐप डाउनलोड करें</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════ TESTIMONIALS ═══════════ -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-label text-center">लोग क्या कहते हैं</div>
+      <h2 class="section-title text-center">लाखों घरों का भरोसा</h2>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"सबसे अच्छी बात — जब नहीं चाहिए तो बंद कर दो। कोई पेनल्टी नहीं, कोई झंझट नहीं। बच्चों की पढ़ाई के लिए बहुत काम आता है।"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">र</div>
+            <div>
+              <div class="testimonial-name">रेखा शर्मा</div>
+              <div class="testimonial-location">नोएडा</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"₹20 में 7 दिन का नेट — और कहाँ मिलेगा? इंजीनियर ने 20 मिनट में सब सेटअप कर दिया। बहुत आसान था।"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">अ</div>
+            <div>
+              <div class="testimonial-name">अमित कुमार</div>
+              <div class="testimonial-location">दिल्ली</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"पहले broadband लिया था — 6 महीने का बंधन था। Wiom में ऐसा कुछ नहीं। मन किया तो चालू, नहीं तो बंद। बस!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">प</div>
+            <div>
+              <div class="testimonial-name">प्रिया सिंह</div>
+              <div class="testimonial-location">मुंबई</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ ═══════════ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-label">अक्सर पूछे जाने वाले सवाल</div>
+      <h2 class="section-title">कोई सवाल है?</h2>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q">
+            Wiom कैसे काम करता है?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-a">₹100 देकर इंजीनियर की विज़िट बुक करें। वो आपके घर आकर नेट बॉक्स लगाएंगे और नेट चालू करेंगे। उसके बाद जब चाहें रिचार्ज करें — ₹5 से शुरू।</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            क्या कोई लंबा कॉन्ट्रैक्ट है?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-a">बिलकुल नहीं। कोई बंधन नहीं है। जब चाहें रिचार्ज करें, जब चाहें रुकें। 1 दिन का प्लान भी उपलब्ध है।</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            नेट बॉक्स के ₹300 वापस मिलेंगे?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-a">हाँ, ₹300 जमा राशि पूरी तरह रिफ़ंडेबल है। जब चाहें नेट बॉक्स वापस करें और पूरी रकम वापस पाएं।</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            सेटअप में कितना समय लगता है?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-a">इंजीनियर बस 30 मिनट में नेट बॉक्स लगा देते हैं और नेट चालू कर देते हैं। नेट सेटअप का कोई अलग चार्ज नहीं है।</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            क्या पेमेंट सुरक्षित है?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-a">हाँ, सभी पेमेंट SSL एन्क्रिप्शन से सुरक्षित हैं। UPI, कार्ड, और नेट बैंकिंग — सब चलता है।</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA BANNER ═══════════ -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>घर का नेट शुरू करें — बस ₹100 में</h2>
+      <p>इंजीनियर आपके घर आएंगे, 30 मिनट में सब तैयार</p>
+      <a href="#plans" class="btn-large">
+        अभी विज़िट बुक करें
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="cta-banner-trust">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          जमा राशि पूरी तरह रिफ़ंडेबल
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          कोई बंधन नहीं
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3"/></svg>
+          हिंदी में कस्टमर केयर
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">wiom</div>
+          <p class="footer-desc">रिचार्ज-वाला घर का नेट। कोई बंधन नहीं, कोई लंबा प्लान नहीं। जब चाहें नेट, जब चाहें बंद।</p>
+        </div>
+        <div class="footer-col">
+          <h4>Wiom</h4>
+          <a href="#how">कैसे काम करता है</a>
+          <a href="#plans">प्लान</a>
+          <a href="#coverage">कहाँ उपलब्ध</a>
+          <a href="#faq">सवाल-जवाब</a>
+        </div>
+        <div class="footer-col">
+          <h4>कंपनी</h4>
+          <a href="#">हमारे बारे में</a>
+          <a href="#">करियर</a>
+          <a href="#">ESG पॉलिसी</a>
+          <a href="#">ब्लॉग</a>
+        </div>
+        <div class="footer-col">
+          <h4>मदद</h4>
+          <a href="tel:8880322222">8880322222</a>
+          <a href="mailto:talk2wiom@wiom.in">talk2wiom@wiom.in</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Omnia Information Pvt. Ltd. सर्वाधिकार सुरक्षित।</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════ FAQ Toggle Script ═══════════ -->
+  <script>
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(el) {
+          el.classList.remove('open');
+        });
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
