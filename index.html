@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wiom — Getting Started Flow</title>
+  <title>Wiom — Getting Started Flow (All Versions)</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,6 +20,7 @@
       --neutral-100: #F1EDF7;
       --neutral-white: #FAF9FC;
       --positive-600: #008043;
+      --positive-200: #C9F0DD;
       --positive-100: #E1FAED;
     }
 
@@ -27,21 +28,54 @@
       font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
       background: #E8E4F0;
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      align-items: flex-start;
-      gap: 40px;
-      padding: 40px;
       min-height: 100vh;
-      flex-wrap: wrap;
+      padding: 20px;
+      overflow: hidden;
     }
 
-    .screen-wrapper { display: flex; flex-direction: column; align-items: center; }
-
-    .label {
+    /* ── Version Switcher ── */
+    .version-switcher {
+      display: flex; gap: 4px;
+      background: var(--neutral-200);
+      padding: 3px; border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .version-tab {
+      padding: 6px 16px; border-radius: 10px;
       font-family: 'Noto Sans', sans-serif;
       font-size: 13px; font-weight: 600;
       color: var(--neutral-700);
-      margin-bottom: 12px; letter-spacing: 0.03em;
+      cursor: pointer; border: none; background: none;
+      transition: all 0.2s ease;
+    }
+    .version-tab.active {
+      background: #FFFFFF;
+      color: var(--neutral-900);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .version-tab:hover:not(.active) {
+      color: var(--neutral-800);
+    }
+
+    /* ── Prototype container ── */
+    .prototype-container {
+      position: relative;
+      width: 360px;
+      height: 720px;
+    }
+
+    /* ── Version layer ── */
+    .version-layer {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .version-layer.active {
+      opacity: 1; pointer-events: auto;
     }
 
     /* ── Phone Frame ── */
@@ -52,6 +86,17 @@
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,0.18);
       display: flex; flex-direction: column;
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      transform: translateX(60px);
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .phone.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
     }
 
     /* ── Status Bar ── */
@@ -88,7 +133,10 @@
       height: 3px; margin: 0 16px;
       background: var(--neutral-200); border-radius: 888px; flex-shrink: 0;
     }
-    .progress-bar .fill { height: 100%; border-radius: 888px; background: var(--brand-600); }
+    .progress-bar .fill {
+      height: 100%; border-radius: 888px; background: var(--brand-600);
+      transition: width 0.35s ease;
+    }
 
     /* ── Content Area ── */
     .content {
@@ -102,10 +150,14 @@
       font-size: 22px; font-weight: 700; line-height: 30px;
       color: var(--neutral-900); text-wrap: balance;
     }
+    .headline--v3 {
+      font-size: 24px; line-height: 32px;
+    }
     .sub-headline {
       font-size: 14px; font-weight: 400; line-height: 20px;
       color: var(--neutral-700); margin-top: 6px;
     }
+    .sub-headline--v3 { margin-top: 8px; }
 
     /* ── Steps (Screen 1) ── */
     .steps { margin-top: 28px; display: flex; flex-direction: column; }
@@ -150,30 +202,40 @@
       font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
       font-size: 16px; font-weight: 700; line-height: 24px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
-    /* ── Booking Card (Screen 2) ── */
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-primary--glow {
+      box-shadow: 0 4px 12px rgba(217, 43, 144, 0.3);
+    }
+
+    /* ── Booking Card ── */
     .booking-card {
       margin-top: 20px;
       border: 1px solid var(--neutral-200);
       border-radius: 16px; overflow: hidden;
     }
-    .booking-header {
-      padding: 16px 16px 14px;
+    .booking-card--v3 {
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border-top: 3px solid var(--brand-600);
     }
+    .booking-header { padding: 16px 16px 14px; }
     .booking-label {
       font-size: 12px; font-weight: 600; line-height: 16px;
       color: var(--neutral-500); letter-spacing: 0.04em;
     }
+    .booking-label--brand { color: var(--brand-600); }
     .booking-amount {
       font-size: 28px; font-weight: 700; line-height: 36px;
       color: var(--neutral-900); margin-top: 4px;
     }
+    .booking-amount--v3 { font-size: 32px; line-height: 40px; }
     .booking-purpose {
       font-size: 14px; font-weight: 400; line-height: 20px;
       color: var(--neutral-700); margin-top: 2px;
     }
     .booking-divider { height: 1px; background: var(--neutral-200); border: none; }
-
     .booking-body {
       padding: 14px 16px 16px;
       display: flex; flex-direction: column; gap: 12px;
@@ -182,9 +244,7 @@
       font-size: 12px; font-weight: 600; line-height: 16px;
       color: var(--neutral-500);
     }
-    .booking-item {
-      display: flex; gap: 10px; align-items: center;
-    }
+    .booking-item { display: flex; gap: 10px; align-items: center; }
     .booking-icon {
       width: 20px; height: 20px; min-width: 20px;
       display: flex; align-items: center; justify-content: center;
@@ -217,7 +277,7 @@
       font-size: 12px; font-weight: 600; color: var(--positive-600);
     }
 
-    /* ── Payment Card (Screen 3) ── */
+    /* ══ V1 — Payment Card ══ */
     .payment-card {
       margin-top: 20px;
       border: 1px solid var(--neutral-200);
@@ -249,14 +309,160 @@
     .payment-sub .highlight { color: var(--positive-600); font-weight: 600; }
     .payment-divider { height: 1px; background: var(--neutral-200); border: none; }
 
-    /* ── Info Note ── */
-    .info-note {
-      margin-top: 14px; padding: 10px 14px;
-      background: var(--neutral-100); border-radius: 10px;
+    /* ══ V2 — Cost Card ══ */
+    .cost-card {
+      margin-top: 20px;
+      border: 1px solid var(--neutral-200);
+      border-radius: 16px; overflow: hidden;
     }
-    .info-note .text {
+    .cost-section { padding: 16px; }
+    .cost-section + .cost-section { border-top: 1px solid var(--neutral-200); }
+    .cost-label {
+      font-size: 12px; font-weight: 600; line-height: 16px;
+      color: var(--neutral-500); letter-spacing: 0.02em;
+    }
+    .cost-row {
+      display: flex; align-items: baseline; gap: 8px;
+      margin-top: 4px;
+    }
+    .cost-amount {
+      font-size: 28px; font-weight: 700; line-height: 36px;
+      color: var(--neutral-900);
+    }
+    .cost-amount--secondary { font-size: 20px; line-height: 26px; }
+    .cost-dash { font-size: 14px; color: var(--neutral-300); }
+    .cost-desc {
       font-size: 13px; font-weight: 400; line-height: 18px;
       color: var(--neutral-700);
+    }
+    .cost-purpose {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-700); margin-top: 2px;
+    }
+
+    /* ── V2 Checklist ── */
+    .check-list {
+      margin-top: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .check-item { display: flex; align-items: center; gap: 10px; }
+    .check-icon {
+      width: 20px; height: 20px; min-width: 20px;
+      border-radius: 888px; background: var(--positive-100);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-icon svg { color: var(--positive-600); }
+    .check-text {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-800);
+    }
+    .check-text strong { font-weight: 600; }
+
+    /* ══ V3 — Price Anchor ══ */
+    .price-anchor {
+      margin-top: 24px; padding: 16px;
+      background: var(--neutral-white);
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border-top: 3px solid var(--brand-600);
+    }
+    .price-anchor-label {
+      font-size: 12px; font-weight: 600; line-height: 16px;
+      color: var(--brand-600); letter-spacing: 0.02em;
+    }
+    .price-anchor-row {
+      display: flex; align-items: baseline; gap: 8px; margin-top: 4px;
+    }
+    .price-anchor-amount {
+      font-size: 32px; font-weight: 700; line-height: 40px;
+      color: var(--neutral-900);
+    }
+    .price-anchor-desc {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-700);
+    }
+    .price-anchor-deposit {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--neutral-200);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .price-anchor-deposit-text {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700);
+    }
+    .price-anchor-deposit-text strong { font-weight: 600; color: var(--neutral-800); }
+    .price-anchor-deposit-badge {
+      font-size: 11px; font-weight: 600; line-height: 16px;
+      color: var(--positive-600); background: var(--positive-100);
+      padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+    }
+
+    /* ── V3 Next Steps ── */
+    .next-steps { margin-top: 24px; }
+    .next-steps-label {
+      font-size: 12px; font-weight: 600; line-height: 16px;
+      color: var(--neutral-500); letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+    .next-step {
+      display: flex; gap: 12px; align-items: flex-start;
+      position: relative; padding-bottom: 16px;
+    }
+    .next-step:last-child { padding-bottom: 0; }
+    .next-step:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 11px; top: 24px; bottom: 0;
+      width: 1.5px; background: var(--neutral-200);
+    }
+    .next-step-icon {
+      width: 24px; height: 24px; min-width: 24px;
+      border-radius: 888px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .next-step-icon--brand { background: var(--brand-100); color: var(--brand-600); }
+    .next-step-icon--neutral { background: var(--neutral-100); color: var(--neutral-700); }
+    .next-step-text { flex: 1; padding-top: 2px; }
+    .next-step-title {
+      font-size: 14px; font-weight: 600; line-height: 20px;
+      color: var(--neutral-900);
+    }
+    .next-step-desc {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700); margin-top: 2px;
+    }
+
+    /* ── V3 Trust Signals ── */
+    .trust-signals {
+      margin-top: 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .trust-item { display: flex; align-items: center; gap: 10px; }
+    .trust-icon {
+      width: 20px; height: 20px; min-width: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--neutral-800);
+    }
+    .trust-text {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-800);
+    }
+    .trust-text strong { font-weight: 600; }
+
+    /* ── V3 Help Link ── */
+    .help-link {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: auto; padding-top: 16px;
+      font-size: 13px; font-weight: 600; line-height: 18px;
+      color: var(--brand-600); cursor: pointer;
+    }
+    .help-link svg { min-width: 16px; }
+
+    /* ── V3 CTA Price Label ── */
+    .cta-price-label {
+      text-align: center;
+      font-size: 13px; font-weight: 600; line-height: 18px;
+      color: var(--neutral-700); padding-bottom: 4px;
     }
 
     /* ── Time Badge ── */
@@ -269,7 +475,17 @@
     }
     .time-badge svg { min-width: 18px; }
 
-    /* ── Social Proof (rotating) ── */
+    /* ── Info Note ── */
+    .info-note {
+      margin-top: 14px; padding: 10px 14px;
+      background: var(--neutral-100); border-radius: 10px;
+    }
+    .info-note .text {
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700);
+    }
+
+    /* ── Social Proof ── */
     .social-proof {
       margin-top: auto; padding-top: 16px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -279,17 +495,12 @@
       width: 5px; height: 5px; border-radius: 888px;
       background: var(--positive-600); flex-shrink: 0;
     }
-    .social-proof-window {
-      height: 20px; overflow: hidden; flex-shrink: 0;
-    }
+    .social-proof-window { height: 20px; overflow: hidden; flex-shrink: 0; }
     .social-proof-track {
       display: flex; flex-direction: column;
       animation: rotateHooks 12s linear infinite;
     }
-    .social-proof-item {
-      height: 20px; line-height: 20px;
-      white-space: nowrap;
-    }
+    .social-proof-item { height: 20px; line-height: 20px; white-space: nowrap; }
     @keyframes rotateHooks {
       0%, 22%   { transform: translateY(0); }
       25%, 47%  { transform: translateY(-20px); }
@@ -298,291 +509,1002 @@
       100%      { transform: translateY(-60px); }
     }
 
-    /* ── Flow Arrow ── */
-    .flow-arrow {
-      display: flex; align-items: center; justify-content: center;
-      align-self: center; margin-top: 340px; color: var(--neutral-300);
+    /* ── Screen indicator dots ── */
+    .screen-dots {
+      display: flex; gap: 8px;
+      margin-top: 20px;
     }
-    .flow-arrow svg { width: 28px; height: 28px; }
+    .screen-dots .dot {
+      width: 8px; height: 8px; border-radius: 888px;
+      background: var(--neutral-300);
+      transition: background 0.3s ease, width 0.3s ease;
+    }
+    .screen-dots .dot.active {
+      width: 24px;
+      background: var(--brand-600);
+    }
+
+    /* ── Hint text ── */
+    .hint {
+      margin-top: 14px;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px;
+      color: var(--neutral-500);
+      text-align: center;
+    }
+
+    /* ══ V4 — The One Number ══ */
+    .hero-amount-block {
+      margin-top: 40px;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+    }
+    .hero-amount-kicker {
+      font-size: 13px; font-weight: 600; line-height: 18px;
+      color: var(--neutral-500); letter-spacing: 0.02em;
+    }
+    .hero-amount {
+      font-size: 56px; font-weight: 700; line-height: 64px;
+      color: var(--neutral-900); margin-top: 4px;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .hero-amount-purpose {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--neutral-700); margin-top: 4px;
+    }
+    .hero-deposit-line {
+      margin-top: 24px;
+      padding: 10px 16px;
+      background: var(--neutral-100); border-radius: 10px;
+      font-size: 13px; font-weight: 400; line-height: 18px;
+      color: var(--neutral-700); text-align: center;
+    }
+    .hero-deposit-line strong { font-weight: 600; color: var(--neutral-800); }
+    .hero-deposit-line .badge {
+      display: inline;
+      font-weight: 600; color: var(--positive-600);
+    }
+    .v4-doubts {
+      margin-top: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .v4-doubt {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; line-height: 20px; color: var(--neutral-800);
+    }
+    .v4-doubt-q {
+      font-weight: 600; color: var(--neutral-700);
+      min-width: fit-content; white-space: nowrap;
+    }
+    .v4-doubt-a { font-weight: 400; }
+    .v4-doubt-a strong { font-weight: 600; }
+    .v4-arrow {
+      color: var(--neutral-300); font-size: 12px; min-width: 16px; text-align: center;
+    }
+
+    /* ── Analogy block (v4 screen 1) ── */
+    .analogy-block {
+      margin-top: 20px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .analogy-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-radius: 12px; background: var(--neutral-100);
+    }
+    .analogy-row--highlight {
+      background: var(--brand-100);
+    }
+    .analogy-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: #FFFFFF; flex-shrink: 0;
+    }
+    .analogy-row--highlight .analogy-icon {
+      background: var(--brand-600);
+      color: #FFFFFF;
+    }
+    .analogy-text {
+      font-size: 14px; line-height: 20px; color: var(--neutral-800);
+    }
+    .analogy-text strong { font-weight: 600; }
+    .analogy-equals {
+      text-align: center; font-size: 13px; color: var(--neutral-500); font-weight: 600;
+    }
+
+    /* ── V5 — One question per page ── */
+    .v5-question {
+      margin-top: 8px; padding: 12px 16px;
+      background: var(--neutral-100); border-radius: 12px;
+      font-size: 14px; line-height: 20px; color: var(--neutral-700);
+      font-style: italic;
+    }
+    .v5-answer-card {
+      margin-top: 20px; padding: 20px 16px;
+      background: #FFFFFF; border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .v5-answer-card .label {
+      font-size: 12px; font-weight: 600; color: var(--brand-600);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .v5-answer-card .value {
+      font-size: 32px; font-weight: 700; line-height: 40px;
+      color: var(--neutral-900); margin-top: 4px;
+    }
+    .v5-answer-card .desc {
+      font-size: 14px; line-height: 20px; color: var(--neutral-700); margin-top: 8px;
+    }
+    .v5-answer-card .desc strong { font-weight: 600; color: var(--neutral-900); }
+    .v5-flow-steps {
+      margin-top: 16px; display: flex; flex-direction: column; gap: 0;
+    }
+    .v5-flow-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+    }
+    .v5-flow-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--brand-100); color: var(--brand-600);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .v5-flow-dot--active {
+      background: var(--brand-600); color: #FFFFFF;
+    }
+    .v5-flow-text {
+      font-size: 14px; line-height: 20px; color: var(--neutral-800);
+    }
+    .v5-flow-text strong { font-weight: 600; }
+    .v5-flow-connector {
+      width: 2px; height: 8px; background: var(--neutral-200);
+      margin-left: 13px;
+    }
+    .v5-not-box {
+      margin-top: 16px; padding: 12px 16px;
+      background: var(--positive-100); border-radius: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .v5-not-box .icon {
+      width: 20px; height: 20px; flex-shrink: 0; color: var(--positive-600);
+    }
+    .v5-not-box .text {
+      font-size: 13px; line-height: 18px; color: var(--neutral-800);
+    }
+    .v5-not-box .text strong { font-weight: 600; color: var(--positive-600); }
+    .v5-breakup {
+      margin-top: 20px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .v5-breakup-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px; border-radius: 12px; background: var(--neutral-100);
+    }
+    .v5-breakup-item--highlight {
+      background: var(--brand-100);
+    }
+    .v5-breakup-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: #FFFFFF; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .v5-breakup-item--highlight .v5-breakup-icon {
+      background: var(--brand-600);
+    }
+    .v5-breakup-content {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .v5-breakup-when {
+      font-size: 11px; font-weight: 600; color: var(--neutral-500);
+      text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .v5-breakup-amount {
+      font-size: 20px; font-weight: 700; color: var(--neutral-900); line-height: 26px;
+    }
+    .v5-breakup-purpose {
+      font-size: 13px; color: var(--neutral-700); line-height: 18px;
+    }
+    .v5-timeline {
+      margin-top: 20px; display: flex; flex-direction: column; gap: 0;
+    }
+    .v5-timeline-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      position: relative; padding-bottom: 20px;
+    }
+    .v5-timeline-item:last-child { padding-bottom: 0; }
+    .v5-timeline-marker {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--neutral-100); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .v5-timeline-marker--brand {
+      background: var(--brand-600);
+    }
+    .v5-timeline-item:not(:last-child)::before {
+      content: ''; position: absolute; left: 17px; top: 36px;
+      width: 2px; height: calc(100% - 36px);
+      background: var(--neutral-200);
+    }
+    .v5-timeline-body {
+      padding-top: 6px;
+    }
+    .v5-timeline-day {
+      font-size: 12px; font-weight: 600; color: var(--brand-600);
+    }
+    .v5-timeline-title {
+      font-size: 15px; font-weight: 600; color: var(--neutral-900); line-height: 22px;
+    }
+    .v5-timeline-desc {
+      font-size: 13px; color: var(--neutral-700); line-height: 18px; margin-top: 2px;
+    }
+
+    /* ── V6 — Hero card ── */
+    .v6-hero-card {
+      margin-top: 16px; padding: 24px 20px;
+      background: var(--neutral-100); border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+    .v6-hero-kicker {
+      font-size: 13px; font-weight: 600; color: var(--neutral-500);
+    }
+    .v6-hero-amount {
+      font-size: 40px; font-weight: 700; line-height: 48px;
+      color: var(--neutral-900); margin-top: 4px;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .v6-hero-divider {
+      width: 32px; height: 1px;
+      background: var(--neutral-300);
+      margin: 14px 0;
+    }
+    .v6-hero-purpose {
+      font-size: 15px; line-height: 22px; font-weight: 500;
+      color: var(--neutral-700);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .v6-hero-purpose .icon { color: var(--neutral-500); flex-shrink: 0; }
+    .v6-deposit {
+      margin-top: 20px; display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 100px;
+      background: var(--positive-100);
+      font-size: 13px; color: var(--neutral-800);
+    }
+    .v6-deposit strong { font-weight: 600; color: var(--neutral-900); }
+    .v6-deposit .tag {
+      font-weight: 600; color: var(--positive-600);
+    }
+    .v6-deposit .shield { flex-shrink: 0; color: var(--positive-600); }
+    .v6-doubts-card {
+      margin-top: 24px; padding: 4px 0;
+      background: #FFFFFF; border-radius: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .v6-doubt-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px;
+    }
+    .v6-doubt-row + .v6-doubt-row {
+      border-top: 1px solid var(--neutral-100);
+    }
+    .v6-doubt-row .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brand-600); flex-shrink: 0; opacity: 0.5;
+    }
+    .v6-doubt-row .q {
+      font-size: 13px; font-weight: 600; color: var(--neutral-500);
+      min-width: fit-content; white-space: nowrap;
+    }
+    .v6-doubt-row .a {
+      font-size: 14px; color: var(--neutral-800); margin-left: auto;
+      text-align: right;
+    }
+    .v6-doubt-row .a strong { font-weight: 600; color: var(--neutral-900); }
   </style>
-  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
-  <!-- ════════════════ SCREEN 1 — HOW IT WORKS ════════════════ -->
-  <div class="screen-wrapper">
-    <div class="label">Screen 1 — कैसे लगेगा नेट</div>
-    <div class="phone">
-      <div class="status-bar">
-        <span>04:35 PM</span>
-        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+  <!-- Version Switcher -->
+  <div class="version-switcher">
+    <button class="version-tab active" onclick="switchVersion(0)">v1</button>
+    <button class="version-tab" onclick="switchVersion(1)">v2</button>
+    <button class="version-tab" onclick="switchVersion(2)">v3</button>
+    <button class="version-tab" onclick="switchVersion(3)">v4</button>
+    <button class="version-tab" onclick="switchVersion(4)">v5</button>
+    <button class="version-tab" onclick="switchVersion(5)">v6</button>
+  </div>
+
+  <div class="prototype-container">
+
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║                    VERSION 1                         ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer active" id="ver0">
+
+      <div class="phone active" data-ver="0" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions">
+            <div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div>
+            <div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div>
+          </div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 25%"></div></div>
+        <div class="content">
+          <h1 class="headline">घर पर नेट लगवाना बहुत आसान है</h1>
+          <p class="sub-headline">हमारे इंजीनियर आपके घर आकर सब सेटअप करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">₹100 देकर इंजीनियर की विज़िट बुक करें — वो आपके घर आएंगे</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">इंजीनियर सब सेटअप करेंगे</div><div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">नेट चालू — रिचार्ज बाद में</div><div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div></div></div>
+          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">आगे बढ़ें</button></div>
       </div>
 
-      <div class="top-bar">
-        <div class="back">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <div class="phone" data-ver="0" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-        <div class="actions">
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+        <div class="progress-bar"><div class="fill" style="width: 50%"></div></div>
+        <div class="content">
+          <h1 class="headline">इंजीनियर की विज़िट बुक करें</h1>
+          <p class="sub-headline">नेट सेटअप शुरू करने के लिए पहला कदम</p>
+          <div class="booking-card">
+            <div class="booking-header"><span class="booking-label">विज़िट बुकिंग चार्ज</span><div class="booking-amount">₹100</div><span class="booking-purpose">इंजीनियर आपके घर आएंगे और नेट बॉक्स लगाएंगे</span></div>
+            <hr class="booking-divider">
+            <div class="booking-body">
+              <span class="booking-body-label">विज़िट में क्या होगा</span>
+              <div class="booking-item"><div class="booking-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><span class="booking-item-text">नेट बॉक्स लगेगा</span></div>
+              <div class="booking-item"><div class="booking-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4"/><path d="M6 20V10"/><path d="M18 20V8"/><path d="M2 20h20"/></svg></div><span class="booking-item-text">नेट चालू होगा — बस 30 मिनट</span></div>
+              <div class="booking-item"><div class="booking-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 8h12M14 8c0 5.523-3.582 10-8 10M6.5 13c1.38 1.5 3.44 2.5 5.5 3"/></svg></div><span class="booking-item-text">नेट बॉक्स जमा राशि <strong>₹300</strong> (रिफ़ंडेबल)</span></div>
+            </div>
           </div>
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
-          </div>
+          <div class="reassurance"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><span class="text">रिचार्ज अभी नहीं — <strong>बाद में, जब चाहें</strong></span></div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
         </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">पूरा खर्चा देखें</button></div>
       </div>
 
-      <div class="progress-bar"><div class="fill" style="width: 25%"></div></div>
-
-      <div class="content">
-        <h1 class="headline">घर पर नेट लगवाना बहुत आसान है</h1>
-        <p class="sub-headline">हमारे इंजीनियर आपके घर आकर सब सेटअप करते हैं</p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <div class="step-title">विज़िट बुक करें</div>
-              <div class="step-desc">₹100 देकर इंजीनियर की विज़िट बुक करें — वो आपके घर आएंगे</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <div class="step-title">इंजीनियर सब सेटअप करेंगे</div>
-              <div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <div class="step-title">नेट चालू — रिचार्ज बाद में</div>
-              <div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div>
-            </div>
-          </div>
+      <div class="phone" data-ver="0" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-
-        <div class="time-badge">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          पूरा काम 2 दिन में हो जाता है
-        </div>
-
-        <div class="social-proof">
-          <div class="dot"></div>
-          <div class="social-proof-window">
-            <div class="social-proof-track">
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
-              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-            </div>
+        <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
+        <div class="content">
+          <h1 class="headline">पूरा खर्चा — एक नज़र में</h1>
+          <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
+          <div class="payment-card">
+            <div class="payment-item"><div class="payment-badge">अभी — विज़िट बुकिंग</div><div class="payment-row"><span class="payment-amount">₹100</span><span class="payment-dash">—</span><span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span></div></div>
+            <hr class="payment-divider">
+            <div class="payment-item"><div class="payment-badge">विज़िट के समय</div><div class="payment-row"><span class="payment-amount">₹300</span><span class="payment-dash">—</span><span class="payment-desc">नेट बॉक्स जमा राशि</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस करें → रकम वापस</div></div>
+            <hr class="payment-divider">
+            <div class="payment-item"><div class="payment-badge">बाद में — जब चाहें</div><div class="payment-row"><span class="payment-amount payment-amount--muted">₹23+</span><span class="payment-dash">—</span><span class="payment-desc">रिचार्ज (1 दिन से शुरू)</span></div><div class="payment-sub">कोई लंबा प्लान ज़रूरी नहीं — <span class="highlight">रोज़ का रिचार्ज भी चलता है</span></div></div>
           </div>
+          <div class="info-note"><span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span></div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
         </div>
-      </div>
-
-      <div class="bottom-cta">
-        <button class="btn-primary">आगे बढ़ें</button>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट बुक करें</button></div>
       </div>
     </div>
-  </div>
 
-  <!-- Arrow -->
-  <div class="flow-arrow">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </div>
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║          VERSION 2 — Straightforward                ║ -->
+    <!-- ║          क्या → कैसे → खर्चा                          ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver1">
 
-  <!-- ════════════════ SCREEN 2 — VISIT BOOKING ════════════════ -->
-  <div class="screen-wrapper">
-    <div class="label">Screen 2 — विज़िट बुकिंग</div>
-    <div class="phone">
-      <div class="status-bar">
-        <span>04:35 PM</span>
-        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+      <!-- SCREEN 1 — क्या है -->
+      <div class="phone active" data-ver="1" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 33%"></div></div>
+        <div class="content">
+          <h1 class="headline">रिचार्ज वाला घर का नेट</h1>
+          <p class="sub-headline">जब चाहें तब चलाएं — कोई मंथली प्लान नहीं</p>
+          <div class="check-list" style="margin-top: 20px;">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">घर पर <strong>नेट बॉक्स</strong> लगता है — इंजीनियर सब करते हैं</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text"><strong>रिचार्ज करो → नेट चालू</strong> — एक दिन का भी चलता है</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">जब चाहें बंद करो — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">कैसे शुरू होता है?</button></div>
       </div>
 
-      <div class="top-bar">
-        <div class="back">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <!-- SCREEN 2 — कैसे चलता है (NO cost numbers) -->
+      <div class="phone" data-ver="1" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-        <div class="actions">
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+        <div class="progress-bar"><div class="fill" style="width: 66%"></div></div>
+        <div class="content">
+          <h1 class="headline">नेट कैसे शुरू होता है</h1>
+          <p class="sub-headline">इंजीनियर आते हैं, सब सेटअप करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">इंजीनियर आपके घर आएंगे — आप समय चुनें</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">इंजीनियर सब सेटअप करेंगे</div><div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">नेट चालू — रिचार्ज बाद में</div><div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div></div></div>
           </div>
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
-          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
         </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">खर्चा देखें</button></div>
       </div>
 
-      <div class="progress-bar"><div class="fill" style="width: 50%"></div></div>
-
-      <div class="content">
-        <h1 class="headline">इंजीनियर की विज़िट बुक करें</h1>
-        <p class="sub-headline">नेट सेटअप शुरू करने के लिए पहला कदम</p>
-
-        <!-- Booking Card — compact layout -->
-        <div class="booking-card">
-          <!-- Header: what the ₹100 is for -->
-          <div class="booking-header">
-            <span class="booking-label">विज़िट बुकिंग चार्ज</span>
-            <div class="booking-amount">₹100</div>
-            <span class="booking-purpose">इंजीनियर आपके घर आएंगे और नेट बॉक्स लगाएंगे</span>
-          </div>
-
-          <hr class="booking-divider">
-
-          <!-- Body: single-line items (no sub-descriptions) -->
-          <div class="booking-body">
-            <span class="booking-body-label">विज़िट में क्या होगा</span>
-
-            <div class="booking-item">
-              <div class="booking-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-              </div>
-              <span class="booking-item-text">नेट बॉक्स लगेगा</span>
-            </div>
-
-            <div class="booking-item">
-              <div class="booking-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4"/><path d="M6 20V10"/><path d="M18 20V8"/><path d="M2 20h20"/></svg>
-              </div>
-              <span class="booking-item-text">नेट चालू होगा — बस 30 मिनट</span>
-            </div>
-
-            <div class="booking-item">
-              <div class="booking-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 8h12M14 8c0 5.523-3.582 10-8 10M6.5 13c1.38 1.5 3.44 2.5 5.5 3"/></svg>
-              </div>
-              <span class="booking-item-text">नेट बॉक्स जमा राशि <strong>₹300</strong> (रिफ़ंडेबल)</span>
-            </div>
-          </div>
+      <!-- SCREEN 3 — खर्चा -->
+      <div class="phone" data-ver="1" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-
-        <!-- Reassurance — compact -->
-        <div class="reassurance">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-          <span class="text">रिचार्ज अभी नहीं — <strong>बाद में, जब चाहें</strong></span>
-        </div>
-
-        <div class="social-proof">
-          <div class="dot"></div>
-          <div class="social-proof-window">
-            <div class="social-proof-track">
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
-              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-            </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+          <h1 class="headline">शुरू करने का खर्चा</h1>
+          <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
+          <div class="cost-card">
+            <div class="cost-section"><span class="cost-label">अभी</span><div class="cost-row"><span class="cost-amount">₹100</span></div><span class="cost-purpose">इंजीनियर विज़िट बुक करने के लिए</span></div>
+            <div class="cost-section"><span class="cost-label">विज़िट के समय — जमा राशि</span><div class="cost-row"><span class="cost-amount cost-amount--secondary">₹300</span><span class="cost-dash">—</span><span class="cost-desc">नेट बॉक्स के लिए</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस करें → पूरी रकम वापस</div></div>
           </div>
+          <div class="check-list">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">नेट सेटअप <strong>फ़्री</strong> — कोई अलग चार्ज नहीं</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">रिचार्ज <strong>बाद में</strong> — जब चाहें, जितने दिन चाहें</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">कोई लंबा प्लान ज़रूरी नहीं</span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
         </div>
-      </div>
-
-      <div class="bottom-cta">
-        <button class="btn-primary">पूरा खर्चा देखें</button>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">विज़िट बुक करें</button></div>
       </div>
     </div>
-  </div>
 
-  <!-- Arrow -->
-  <div class="flow-arrow">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </div>
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║          VERSION 3 — Benefit-first, warm            ║ -->
+    <!-- ║          क्या → कैसे → खर्चा                          ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver2">
 
-  <!-- ════════════════ SCREEN 3 — FULL COST BREAKDOWN ════════════════ -->
-  <div class="screen-wrapper">
-    <div class="label">Screen 3 — पूरा खर्चा</div>
-    <div class="phone">
-      <div class="status-bar">
-        <span>04:35 PM</span>
-        <div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div>
+      <!-- SCREEN 1 — क्या है (benefit-framed) -->
+      <div class="phone active" data-ver="2" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 33%"></div></div>
+        <div class="content">
+          <h1 class="headline headline--v3">अपने हिसाब से चलने वाला नेट</h1>
+          <p class="sub-headline sub-headline--v3">रिचार्ज करो → नेट चालू। बस।</p>
+          <div class="check-list" style="margin-top: 20px;">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">कोई मंथली प्लान नहीं — <strong>अपनी मर्ज़ी से रिचार्ज</strong></span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text"><strong>एक दिन</strong> का भी रिचार्ज चलता है</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">जब चाहें बंद करो — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">कैसे शुरू करें?</button></div>
       </div>
 
-      <div class="top-bar">
-        <div class="back">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <!-- SCREEN 2 — कैसे चलता है (NO cost numbers) -->
+      <div class="phone" data-ver="2" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-        <div class="actions">
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg>
+        <div class="progress-bar"><div class="fill" style="width: 66%"></div></div>
+        <div class="content">
+          <h1 class="headline headline--v3">शुरू करना बहुत आसान है</h1>
+          <p class="sub-headline sub-headline--v3">आपको कुछ नहीं करना — हमारे इंजीनियर सब करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">अपना समय चुनें — इंजीनियर आपके घर आएंगे</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">इंजीनियर सब सेटअप करेंगे</div><div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">नेट चालू — रिचार्ज जब चाहें</div><div class="step-desc">एक दिन से लेकर महीने भर तक — आपकी मर्ज़ी</div></div></div>
           </div>
-          <div class="icon-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg>
-          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">खर्चा देखें</button></div>
       </div>
 
-      <div class="progress-bar"><div class="fill" style="width: 75%"></div></div>
-
-      <div class="content">
-        <h1 class="headline">पूरा खर्चा — एक नज़र में</h1>
-        <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
-
-        <div class="payment-card">
-          <!-- Now -->
-          <div class="payment-item">
-            <div class="payment-badge">अभी — विज़िट बुकिंग</div>
-            <div class="payment-row">
-              <span class="payment-amount">₹100</span>
-              <span class="payment-dash">—</span>
-              <span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span>
-            </div>
-          </div>
-
-          <hr class="payment-divider">
-
-          <!-- At visit -->
-          <div class="payment-item">
-            <div class="payment-badge">विज़िट के समय</div>
-            <div class="payment-row">
-              <span class="payment-amount">₹300</span>
-              <span class="payment-dash">—</span>
-              <span class="payment-desc">नेट बॉक्स जमा राशि</span>
-            </div>
-            <div class="refundable-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              बॉक्स वापस करें → रकम वापस
-            </div>
-          </div>
-
-          <hr class="payment-divider">
-
-          <!-- Later -->
-          <div class="payment-item">
-            <div class="payment-badge">बाद में — जब चाहें</div>
-            <div class="payment-row">
-              <span class="payment-amount payment-amount--muted">₹23+</span>
-              <span class="payment-dash">—</span>
-              <span class="payment-desc">रिचार्ज (1 दिन से शुरू)</span>
-            </div>
-            <div class="payment-sub">
-              कोई लंबा प्लान ज़रूरी नहीं — <span class="highlight">रोज़ का रिचार्ज भी चलता है</span>
-            </div>
-          </div>
+      <!-- SCREEN 3 — खर्चा -->
+      <div class="phone" data-ver="2" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
         </div>
-
-        <!-- Info note -->
-        <div class="info-note">
-          <span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span>
-        </div>
-
-        <div class="social-proof">
-          <div class="dot"></div>
-          <div class="social-proof-window">
-            <div class="social-proof-track">
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-              <div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div>
-              <div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div>
-              <div class="social-proof-item">लाखों घरों में नेट लग चुका है</div>
-            </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+          <h1 class="headline headline--v3">बस इतना — और नेट लग जाएगा</h1>
+          <p class="sub-headline sub-headline--v3">सब कुछ सामने है, कोई बंधन नहीं</p>
+          <div class="payment-card">
+            <div class="payment-item"><div class="payment-badge">अभी — विज़िट बुकिंग</div><div class="payment-row"><span class="payment-amount">₹100</span><span class="payment-dash">—</span><span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span></div></div>
+            <hr class="payment-divider">
+            <div class="payment-item"><div class="payment-badge">विज़िट के दिन</div><div class="payment-row"><span class="payment-amount">₹300</span><span class="payment-dash">—</span><span class="payment-desc">नेट बॉक्स जमा राशि</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>नेट बॉक्स लौटाएं → पूरे ₹300 वापस</div></div>
           </div>
+          <div class="reassurance"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><span class="text">रिचार्ज बाद में — <strong>जब चाहें, जितने दिन चाहें</strong></span></div>
+          <div class="info-note"><span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span></div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-      </div>
-
-      <div class="bottom-cta">
-        <button class="btn-primary">₹100 देकर विज़िट बुक करें</button>
+        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">विज़िट बुक करें</button></div>
       </div>
     </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║      VERSION 5 — One question per page              ║ -->
+    <!-- ║      S1: क्या  S2: कैसे  S3: बुकिंग?               ║ -->
+    <!-- ║      S4: ₹100 क्यों?  S5: कब होगा?                  ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver4">
+
+      <!-- SCREEN 1 — क्या है (LOCKED — same as v2) -->
+      <div class="phone active" data-ver="4" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 20%"></div></div>
+        <div class="content">
+          <h1 class="headline">रिचार्ज वाला घर का नेट</h1>
+          <p class="sub-headline">जब चाहें तब चलाएं — कोई मंथली प्लान नहीं</p>
+          <div class="check-list" style="margin-top: 20px;">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">घर पर <strong>नेट बॉक्स</strong> लगता है — इंजीनियर सब करते हैं</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text"><strong>रिचार्ज करो → नेट चालू</strong> — एक दिन का भी चलता है</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">जब चाहें बंद करो — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">कैसे शुरू होता है?</button></div>
+      </div>
+
+      <!-- SCREEN 2 — कैसे चलता है (LOCKED — same as v2) -->
+      <div class="phone" data-ver="4" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 40%"></div></div>
+        <div class="content">
+          <h1 class="headline">नेट कैसे शुरू होता है</h1>
+          <p class="sub-headline">इंजीनियर आते हैं, सब सेटअप करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">इंजीनियर आपके घर आएंगे — आप समय चुनें</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">इंजीनियर सब सेटअप करेंगे</div><div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">नेट चालू — रिचार्ज बाद में</div><div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div></div></div>
+          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">बुकिंग समझें</button></div>
+      </div>
+
+      <!-- SCREEN 3 — "बुकिंग कैसे काम करती है?" / "Is this a commitment?" -->
+      <div class="phone" data-ver="4" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 60%"></div></div>
+        <div class="content">
+          <h1 class="headline">बुकिंग = सिर्फ़ इंजीनियर की विज़िट</h1>
+          <p class="sub-headline">ये कोई सब्सक्रिप्शन या प्लान नहीं है</p>
+
+          <div class="v5-question">"क्या बुकिंग का मतलब कोई कमिटमेंट है?"</div>
+
+          <div class="v5-flow-steps">
+            <div class="v5-flow-step">
+              <div class="v5-flow-dot v5-flow-dot--active">1</div>
+              <span class="v5-flow-text"><strong>आप ₹100 देते हैं</strong> — विज़िट बुक होती है</span>
+            </div>
+            <div class="v5-flow-connector"></div>
+            <div class="v5-flow-step">
+              <div class="v5-flow-dot">2</div>
+              <span class="v5-flow-text"><strong>इंजीनियर घर आते हैं</strong> — नेट बॉक्स लगाते हैं</span>
+            </div>
+            <div class="v5-flow-connector"></div>
+            <div class="v5-flow-step">
+              <div class="v5-flow-dot">3</div>
+              <span class="v5-flow-text"><strong>पसंद आए तो रखो</strong> — नहीं तो वापस करो, कोई बंधन नहीं</span>
+            </div>
+          </div>
+
+          <div class="v5-not-box">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="text">कोई लॉक-इन नहीं। कोई मंथली प्लान नहीं। <strong>सिर्फ़ विज़िट।</strong></span>
+          </div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 की बात समझें</button></div>
+      </div>
+
+      <!-- SCREEN 4 — "₹100 क्यों?" / "Will I lose this money?" -->
+      <div class="phone" data-ver="4" data-screen="3">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 80%"></div></div>
+        <div class="content">
+          <h1 class="headline">आप क्या-क्या देते हैं</h1>
+          <p class="sub-headline">सिर्फ़ दो चीज़ें — बस</p>
+
+          <div class="v5-question">"₹100 क्यों? ये पैसा डूबेगा तो नहीं?"</div>
+
+          <div class="v5-breakup">
+            <div class="v5-breakup-item v5-breakup-item--highlight">
+              <div class="v5-breakup-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div class="v5-breakup-content">
+                <span class="v5-breakup-when">अभी — बुकिंग</span>
+                <span class="v5-breakup-amount">₹100</span>
+                <span class="v5-breakup-purpose">इंजीनियर की विज़िट बुक होती है। ये <strong>सब्सक्रिप्शन नहीं</strong> है — सिर्फ़ बुकिंग।</span>
+              </div>
+            </div>
+            <div class="v5-breakup-item">
+              <div class="v5-breakup-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="v5-breakup-content">
+                <span class="v5-breakup-when">विज़िट के दिन — जमा राशि</span>
+                <span class="v5-breakup-amount">₹300</span>
+                <span class="v5-breakup-purpose">नेट बॉक्स की सिक्योरिटी। <strong>बॉक्स लौटाएं → पूरे ₹300 वापस।</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="v5-not-box">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+            <span class="text">रिचार्ज बाद में — <strong>1 दिन, 1 हफ़्ता, 1 महीना</strong> — आपकी मर्ज़ी</span>
+          </div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">सेटअप कब होगा?</button></div>
+      </div>
+
+      <!-- SCREEN 5 — "सेटअप कब होगा?" / "How long do I wait?" -->
+      <div class="phone" data-ver="4" data-screen="4">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+          <h1 class="headline">आमतौर पर 2 दिन में नेट चालू</h1>
+          <p class="sub-headline">बुक करें → इंजीनियर आएंगे → नेट लग जाएगा</p>
+
+          <div class="v5-question">"कितने दिन लगेंगे? इंतज़ार कितना?"</div>
+
+          <div class="v5-timeline">
+            <div class="v5-timeline-item">
+              <div class="v5-timeline-marker v5-timeline-marker--brand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <div class="v5-timeline-body">
+                <span class="v5-timeline-day">आज</span>
+                <span class="v5-timeline-title">विज़िट बुक करें</span>
+                <span class="v5-timeline-desc">₹100 देकर बुकिंग कन्फ़र्म होती है</span>
+              </div>
+            </div>
+            <div class="v5-timeline-item">
+              <div class="v5-timeline-marker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="v5-timeline-body">
+                <span class="v5-timeline-day">1-2 दिन में</span>
+                <span class="v5-timeline-title">इंजीनियर घर आएंगे</span>
+                <span class="v5-timeline-desc">नेट बॉक्स लगाएंगे + ₹300 जमा राशि (रिफ़ंडेबल)</span>
+              </div>
+            </div>
+            <div class="v5-timeline-item">
+              <div class="v5-timeline-marker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div>
+              <div class="v5-timeline-body">
+                <span class="v5-timeline-day">उसी दिन</span>
+                <span class="v5-timeline-title">नेट चालू हो जाएगा</span>
+                <span class="v5-timeline-desc">30 मिनट में सेटअप पूरा — फिर रिचार्ज करो, नेट चलाओ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">विज़िट बुक करें</button></div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║      VERSION 6 — V5 in 3 screens (compact Q&A)     ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver5">
+
+      <!-- SCREEN 1 — क्या है (LOCKED) -->
+      <div class="phone active" data-ver="5" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 33%"></div></div>
+        <div class="content">
+          <h1 class="headline">रिचार्ज वाला घर का नेट</h1>
+          <p class="sub-headline">जब चाहें तब चलाएं — कोई मंथली प्लान नहीं</p>
+          <div class="check-list" style="margin-top: 20px;">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">घर पर <strong>नेट बॉक्स</strong> लगता है — इंजीनियर सब करते हैं</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text"><strong>रिचार्ज करो → नेट चालू</strong> — एक दिन का भी चलता है</span></div>
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">जब चाहें बंद करो — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">कैसे शुरू होता है?</button></div>
+      </div>
+
+      <!-- SCREEN 2 — कैसे चलता है (LOCKED) -->
+      <div class="phone" data-ver="5" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 66%"></div></div>
+        <div class="content">
+          <h1 class="headline">नेट कैसे शुरू होता है</h1>
+          <p class="sub-headline">इंजीनियर आते हैं, सब सेटअप करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">इंजीनियर आपके घर आएंगे — आप समय चुनें</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">इंजीनियर सब सेटअप करेंगे</div><div class="step-desc">नेट बॉक्स लगाएंगे, नेट चालू करेंगे — बस 30 मिनट</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">नेट चालू — रिचार्ज बाद में</div><div class="step-desc">जब चाहें तब रिचार्ज करें, चाहे एक दिन के लिए भी</div></div></div>
+          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">खर्चा और बुकिंग समझें</button></div>
+      </div>
+
+      <!-- SCREEN 3 — Polished: hero + deposit pill + doubts card -->
+      <div class="phone" data-ver="5" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+
+          <div class="v6-hero-card">
+            <span class="v6-hero-kicker">अभी सिर्फ़</span>
+            <div class="v6-hero-amount">₹100</div>
+            <div class="v6-hero-divider"></div>
+            <span class="v6-hero-purpose"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>इंजीनियर विज़िट बुक हो जाएगी</span>
+          </div>
+
+          <div class="v6-deposit">
+            <span class="shield"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            विज़िट पर <strong>₹300</strong> जमा राशि · <span class="tag">पूरी तरह रिफ़ंडेबल</span>
+          </div>
+
+          <div class="v6-doubts-card">
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सब्सक्रिप्शन?</span><span class="a"><strong>नहीं</strong> — सिर्फ़ बुकिंग</span></div>
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">रिचार्ज?</span><span class="a"><strong>बाद में</strong> — 1 दिन से 1 महीने तक</span></div>
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सेटअप?</span><span class="a"><strong>~2 दिन में</strong> · फ़्री</span></div>
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">बंधन?</span><span class="a"><strong>कोई नहीं</strong></span></div>
+          </div>
+
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">विज़िट बुक करें</button></div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║          VERSION 4 — Out of the box (analogy)       ║ -->
+    <!-- ║          क्या → कैसे → खर्चा                          ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver3">
+
+      <!-- SCREEN 1 — क्या है (prepaid analogy) -->
+      <div class="phone active" data-ver="3" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 33%"></div></div>
+        <div class="content">
+          <h1 class="headline headline--v3">मोबाइल रिचार्ज जैसा — बस घर के नेट के लिए</h1>
+          <p class="sub-headline sub-headline--v3">जैसे फ़ोन में रिचार्ज करते हो, वैसे ही घर का नेट चलाओ</p>
+
+          <div class="analogy-block">
+            <div class="analogy-row">
+              <div class="analogy-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
+              <span class="analogy-text"><strong>मोबाइल:</strong> रिचार्ज करो → कॉल/डेटा चालू</span>
+            </div>
+            <div class="analogy-equals">ठीक वैसे ही</div>
+            <div class="analogy-row analogy-row--highlight">
+              <div class="analogy-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div>
+              <span class="analogy-text"><strong>Wiom:</strong> रिचार्ज करो → <strong>घर का नेट चालू</strong></span>
+            </div>
+          </div>
+
+          <div class="check-list" style="margin-top: 16px;">
+            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">कोई मंथली प्लान नहीं — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">कैसे लगता है?</button></div>
+      </div>
+
+      <!-- SCREEN 2 — कैसे चलता है (minimal, NO cost) -->
+      <div class="phone" data-ver="3" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 66%"></div></div>
+        <div class="content">
+          <h1 class="headline headline--v3">3 स्टेप में नेट चालू</h1>
+          <p class="sub-headline sub-headline--v3">आपको कुछ नहीं करना — इंजीनियर सब करते हैं</p>
+          <div class="steps">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">विज़िट बुक करें</div><div class="step-desc">अपना समय चुनें — इंजीनियर घर आएंगे</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">नेट बॉक्स लग जाएगा</div><div class="step-desc">इंजीनियर सेटअप करेंगे — बस 30 मिनट का काम</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">रिचार्ज करो, नेट चलाओ</div><div class="step-desc">जब चाहें, जितने दिन चाहें — एक दिन का भी चलता है</div></div></div>
+          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">खर्चा देखें</button></div>
+      </div>
+
+      <!-- SCREEN 3 — खर्चा (The One Number) -->
+      <div class="phone" data-ver="3" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+
+          <div class="hero-amount-block">
+            <span class="hero-amount-kicker">आज सिर्फ़ इतना</span>
+            <div class="hero-amount">₹100</div>
+            <span class="hero-amount-purpose">इंजीनियर विज़िट बुक हो जाएगी</span>
+          </div>
+
+          <div class="hero-deposit-line">
+            विज़िट के दिन <strong>₹300</strong> जमा राशि · <span class="badge">पूरी तरह रिफ़ंडेबल</span>
+          </div>
+
+          <div class="v4-doubts">
+            <div class="v4-doubt"><span class="v4-doubt-q">रिचार्ज?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>बाद में</strong> — जब चाहें</span></div>
+            <div class="v4-doubt"><span class="v4-doubt-q">सेटअप चार्ज?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>फ़्री</strong></span></div>
+            <div class="v4-doubt"><span class="v4-doubt-q">बंधन?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>कोई नहीं</strong> — कभी भी बंद करें</span></div>
+          </div>
+
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">अभी बुक करें</button></div>
+      </div>
+    </div>
+
   </div>
+
+  <!-- Screen indicator dots (generated dynamically) -->
+  <div class="screen-dots" id="screenDots"></div>
+
+  <div class="hint" id="hintText">v1 &nbsp;|&nbsp; CTA दबाएं → अगली स्क्रीन</div>
+
+  <script>
+    var activeVersion = 0;
+    var screenIndex = [0, 0, 0, 0, 0, 0]; // track current screen per version
+    var transitioning = false;
+
+    var versionLabels = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6'];
+
+    function getScreens(ver) {
+      return document.querySelectorAll('[data-ver="' + ver + '"]');
+    }
+
+    function buildDots(ver) {
+      var container = document.getElementById('screenDots');
+      var count = getScreens(ver).length;
+      var html = '';
+      for (var i = 0; i < count; i++) {
+        html += '<div class="dot' + (i === screenIndex[ver] ? ' active' : '') + '"></div>';
+      }
+      container.innerHTML = html;
+    }
+
+    function getDots() {
+      return document.querySelectorAll('.screen-dots .dot');
+    }
+
+    function switchVersion(ver) {
+      if (ver === activeVersion) return;
+
+      // Update tabs
+      var tabs = document.querySelectorAll('.version-tab');
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+      tabs[ver].classList.add('active');
+
+      // Update version layers (use ID to avoid order-dependency)
+      var layers = document.querySelectorAll('.version-layer');
+      for (var i = 0; i < layers.length; i++) {
+        layers[i].classList.remove('active');
+      }
+      document.getElementById('ver' + ver).classList.add('active');
+
+      activeVersion = ver;
+
+      // Rebuild dots for this version's screen count
+      buildDots(ver);
+
+      // Update hint
+      document.getElementById('hintText').textContent = versionLabels[ver] + '  |  CTA \u0926\u092C\u093E\u090F\u0902 \u2192 \u0905\u0917\u0932\u0940 \u0938\u094D\u0915\u094D\u0930\u0940\u0928';
+
+      transitioning = false;
+    }
+
+    function showScreen(ver, index, direction) {
+      if (transitioning) return;
+      transitioning = true;
+
+      var screens = getScreens(ver);
+      var currentIdx = screenIndex[ver];
+      var prev = screens[currentIdx];
+      var next = screens[index];
+
+      next.style.transition = 'none';
+      next.style.transform = direction === 'forward' ? 'translateX(60px)' : 'translateX(-60px)';
+      next.style.opacity = '0';
+      next.classList.remove('active');
+
+      next.offsetHeight;
+
+      prev.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      prev.style.transform = direction === 'forward' ? 'translateX(-60px)' : 'translateX(60px)';
+      prev.style.opacity = '0';
+      prev.classList.remove('active');
+      prev.style.pointerEvents = 'none';
+
+      next.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      next.style.transform = 'translateX(0)';
+      next.style.opacity = '1';
+      next.classList.add('active');
+      next.style.pointerEvents = 'auto';
+
+      var dots = getDots();
+      dots[currentIdx].classList.remove('active');
+      dots[index].classList.add('active');
+
+      screenIndex[ver] = index;
+
+      setTimeout(function() { transitioning = false; }, 370);
+    }
+
+    function goNext() {
+      var screens = getScreens(activeVersion);
+      var next = (screenIndex[activeVersion] + 1) % screens.length;
+      showScreen(activeVersion, next, 'forward');
+    }
+
+    function goBack() {
+      var screens = getScreens(activeVersion);
+      var prev = (screenIndex[activeVersion] - 1 + screens.length) % screens.length;
+      showScreen(activeVersion, prev, 'backward');
+    }
+
+    // Init dots on page load
+    buildDots(0);
+  </script>
 
 </body>
 </html>
