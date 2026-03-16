@@ -763,16 +763,18 @@
     }
     .v6-hero-purpose .icon { color: var(--neutral-500); flex-shrink: 0; }
     .v6-deposit {
-      margin-top: 20px; display: flex; align-items: center; gap: 8px;
-      padding: 10px 16px; border-radius: 100px;
+      margin-top: 20px; display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 16px; border-radius: 14px;
       background: var(--positive-100);
-      font-size: 13px; color: var(--neutral-800);
+      font-size: 13px; color: var(--neutral-800); line-height: 20px;
     }
     .v6-deposit strong { font-weight: 600; color: var(--neutral-900); }
     .v6-deposit .tag {
       font-weight: 600; color: var(--positive-600);
     }
-    .v6-deposit .shield { flex-shrink: 0; color: var(--positive-600); }
+    .v6-deposit .shield { flex-shrink: 0; color: var(--positive-600); margin-top: 2px; }
+    .v6-deposit-text { display: flex; flex-direction: column; gap: 2px; }
+    .v6-deposit-sub { font-size: 12px; color: var(--neutral-500); }
     .v6-doubts-card {
       margin-top: 24px; padding: 4px 0;
       background: #FFFFFF; border-radius: 14px;
@@ -1285,7 +1287,10 @@
 
           <div class="v6-deposit">
             <span class="shield"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-            नेट बॉक्स जमा राशि <strong>₹300</strong> · <span class="tag">पूरी तरह रिफ़ंडेबल</span>
+            <span class="v6-deposit-text">
+              <span>नेट बॉक्स जमा राशि <strong>₹300</strong> · <span class="tag">पूरी तरह रिफ़ंडेबल</span></span>
+              <span class="v6-deposit-sub">नेट सेटअप के दिन ली जाएगी</span>
+            </span>
           </div>
 
           <div class="v6-doubts-card">
