@@ -28,12 +28,92 @@
       font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
       background: #E8E4F0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
-      overflow: hidden;
+      padding: 32px;
+      gap: 40px;
+    }
+
+    /* ── Left Context Panel ── */
+    .context-panel {
+      width: 380px; flex-shrink: 0;
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      max-height: calc(100vh - 64px);
+      overflow-y: auto;
+      position: sticky; top: 32px;
+    }
+    .context-panel h2 {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--neutral-900);
+      margin-bottom: 4px;
+    }
+    .context-panel .context-subtitle {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px; color: var(--neutral-500);
+      margin-bottom: 24px;
+    }
+    .context-section {
+      margin-bottom: 20px;
+    }
+    .context-section h3 {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px; font-weight: 700;
+      color: var(--neutral-900);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .context-section h3 .label-tag {
+      font-size: 10px; font-weight: 600;
+      padding: 2px 6px; border-radius: 4px;
+      text-transform: none; letter-spacing: 0;
+    }
+    .label-tag--objective { background: #EDE9FE; color: #6D28D9; }
+    .label-tag--constraint { background: #FEF3C7; color: #92400E; }
+    .label-tag--kill { background: #FEE2E2; color: #991B1B; }
+    .label-tag--context { background: #E0F2FE; color: #0369A1; }
+    .context-list {
+      list-style: none; padding: 0;
+    }
+    .context-list li {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 13px; line-height: 20px;
+      color: var(--neutral-700);
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+    .context-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 11px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--neutral-300);
+    }
+    .context-divider {
+      height: 1px; background: var(--neutral-100);
+      margin: 16px 0;
+    }
+    .context-version-note {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 12px; color: var(--neutral-500);
+      line-height: 18px;
+      padding: 10px 12px;
+      background: var(--neutral-100);
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    /* ── Right Prototype Panel ── */
+    .prototype-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* ── Version Switcher ── */
@@ -765,7 +845,7 @@
     .v6-deposit {
       margin-top: 20px; display: flex; align-items: flex-start; gap: 10px;
       padding: 14px 16px; border-radius: 14px;
-      background: var(--positive-100);
+      background: transparent; border: 1px solid var(--neutral-300);
       font-size: 13px; color: var(--neutral-800); line-height: 20px;
     }
     .v6-deposit strong { font-weight: 600; color: var(--neutral-900); }
@@ -803,6 +883,73 @@
   </style>
 </head>
 <body>
+
+  <!-- Left Context Panel -->
+  <div class="context-panel">
+    <h2>Booking Flow — Getting Started</h2>
+    <p class="context-subtitle">6 versions exploring how to onboard first-time users</p>
+
+    <div class="context-section">
+      <h3><span class="label-tag label-tag--context">Context</span> What is this flow?</h3>
+      <ul class="context-list">
+        <li>User books an engineer visit for ₹100 → engineer comes, sets up net box → user recharges later</li>
+        <li>Screen 3 (cost/booking screen) causes the most drop-offs — users get confused about what ₹100 and ₹300 mean</li>
+        <li>Three anxieties to solve: "Is this a commitment?", "Why ₹100, will I lose it?", "When will setup happen?"</li>
+      </ul>
+    </div>
+
+    <div class="context-divider"></div>
+
+    <div class="context-section">
+      <h3><span class="label-tag label-tag--objective">Objective</span> What are we solving?</h3>
+      <ul class="context-list">
+        <li>Follow "क्या → कैसे → खर्चा" construct — tell what Wiom is, how it starts, then cost</li>
+        <li>Remove cost confusion from Screen 2 — all amounts only on Screen 3</li>
+        <li>Screen 3 should make ₹100 feel safe (just a visit booking, not subscription)</li>
+        <li>₹300 is net box deposit (refundable) — explain clearly, separate from ₹100</li>
+        <li>Address "when will it happen" — give clear timeline</li>
+      </ul>
+    </div>
+
+    <div class="context-divider"></div>
+
+    <div class="context-section">
+      <h3><span class="label-tag label-tag--constraint">Constraints</span></h3>
+      <ul class="context-list">
+        <li>No recharge amounts (₹ values) — only durations are OK (1 din, 7 din, etc.)</li>
+        <li>Screen 1 and 2 are locked for v5 and v6 — only Screen 3+ changes</li>
+        <li>Use "नेट" not Wi-Fi/internet, "नेट सेटअप" not installation</li>
+        <li>Hindi-first copy, warm tone — belief stabilization, not sales</li>
+      </ul>
+    </div>
+
+    <div class="context-divider"></div>
+
+    <div class="context-section">
+      <h3><span class="label-tag label-tag--kill">Kill List</span></h3>
+      <ul class="context-list">
+        <li>No "subscribe" or "plan" language — this is a visit booking</li>
+        <li>No cost numbers on Screen 2</li>
+        <li>No Wi-Fi / internet / installation words</li>
+        <li>No monthly plan framing — Wiom is prepaid recharge</li>
+      </ul>
+    </div>
+
+    <div class="context-divider"></div>
+
+    <div class="context-section">
+      <h3>Version Notes</h3>
+      <div class="context-version-note"><strong>v1</strong> — Original (baseline)</div>
+      <div class="context-version-note"><strong>v2</strong> — Straightforward: क्या → कैसे → खर्चा</div>
+      <div class="context-version-note"><strong>v3</strong> — Benefit-first, warm tone</div>
+      <div class="context-version-note"><strong>v4</strong> — Analogy-driven (mobile recharge जैसा)</div>
+      <div class="context-version-note"><strong>v5</strong> — One question per page (5 screens, 3 anxieties)</div>
+      <div class="context-version-note"><strong>v6</strong> — v5 compressed into 3 screens</div>
+    </div>
+  </div>
+
+  <!-- Right Prototype Panel -->
+  <div class="prototype-panel">
 
   <!-- Version Switcher -->
   <div class="version-switcher">
@@ -1403,6 +1550,8 @@
   <div class="screen-dots" id="screenDots"></div>
 
   <div class="hint" id="hintText">v1 &nbsp;|&nbsp; CTA दबाएं → अगली स्क्रीन</div>
+
+  </div><!-- /prototype-panel -->
 
   <script>
     var activeVersion = 0;
