@@ -822,6 +822,101 @@
       margin-top: 4px; cursor: pointer;
     }
     .v7-banner-link svg { vertical-align: middle; margin-left: 2px; }
+
+    /* ── V1 Last Screen: Receipt Style ── */
+    .receipt-card {
+      margin-top: 20px; border: 1px solid var(--neutral-200); border-radius: 14px; overflow: hidden;
+    }
+    .receipt-row {
+      display: flex; align-items: flex-start; justify-content: space-between; padding: 14px 16px;
+    }
+    .receipt-row + .receipt-row { border-top: 1px solid var(--neutral-200); }
+    .receipt-left { display: flex; flex-direction: column; gap: 2px; }
+    .receipt-when { font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.3px; }
+    .receipt-desc { font-size: 13px; color: var(--neutral-700); line-height: 18px; }
+    .receipt-amount { font-size: 22px; font-weight: 700; color: var(--neutral-900); line-height: 28px; white-space: nowrap; }
+    .receipt-note {
+      margin-top: 14px; padding: 10px 14px; background: var(--neutral-100); border-radius: 10px;
+      font-size: 13px; color: var(--neutral-700); line-height: 18px;
+    }
+
+    /* ── V3 Last Screen: Trust-first ── */
+    .trust-card {
+      margin-top: 20px; border: 1px solid var(--neutral-200); border-radius: 14px; overflow: hidden;
+    }
+    .trust-card-section { padding: 16px; display: flex; align-items: flex-start; gap: 12px; }
+    .trust-card-section + .trust-card-section { border-top: 1px solid var(--neutral-200); }
+    .trust-card-icon {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .trust-card-body { display: flex; flex-direction: column; gap: 2px; }
+    .trust-card-amount { font-size: 20px; font-weight: 700; color: var(--neutral-900); line-height: 26px; }
+    .trust-card-label { font-size: 13px; color: var(--neutral-700); line-height: 18px; }
+    .trust-reassurance {
+      margin-top: 20px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .trust-reassurance-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--neutral-800); line-height: 20px;
+    }
+    .trust-reassurance-icon {
+      width: 20px; height: 20px; min-width: 20px; border-radius: 50%;
+      background: var(--positive-100); display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── V4 Last Screen: Timeline ── */
+    .timeline-v4 { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .timeline-v4-node {
+      display: flex; align-items: flex-start; gap: 14px;
+      position: relative; padding-bottom: 24px;
+    }
+    .timeline-v4-node:last-child { padding-bottom: 0; }
+    .timeline-v4-node:not(:last-child)::after {
+      content: ''; position: absolute; left: 17px; top: 36px;
+      width: 2px; height: calc(100% - 36px); background: var(--neutral-200);
+    }
+    .timeline-v4-marker {
+      width: 36px; height: 36px; min-width: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1; flex-shrink: 0;
+    }
+    .timeline-v4-body { padding-top: 4px; }
+    .timeline-v4-when { font-size: 12px; font-weight: 600; color: var(--brand-600); line-height: 16px; }
+    .timeline-v4-amount { font-size: 20px; font-weight: 700; color: var(--neutral-900); line-height: 26px; }
+    .timeline-v4-desc { font-size: 13px; color: var(--neutral-700); line-height: 18px; margin-top: 2px; }
+
+    /* ── V5 Last Screen: Q&A Cards ── */
+    .qa-block { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .qa-card { padding: 14px 16px; border-radius: 12px; border-left: 3px solid; }
+    .qa-card--pink { background: var(--brand-100); border-color: var(--brand-600); }
+    .qa-card--green { background: var(--positive-100); border-color: var(--positive-600); }
+    .qa-card--neutral { background: var(--neutral-100); border-color: var(--neutral-500); }
+    .qa-q { font-size: 13px; font-weight: 600; color: var(--neutral-700); line-height: 18px; }
+    .qa-a { font-size: 15px; font-weight: 500; color: var(--neutral-900); line-height: 22px; margin-top: 4px; }
+    .qa-a strong { font-weight: 700; }
+
+    /* ── V7 Last Screen: Side-by-side cards ── */
+    .duo-cards { margin-top: 20px; display: flex; gap: 12px; }
+    .duo-card {
+      flex: 1; padding: 16px 14px; border-radius: 14px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .duo-card--now { background: var(--brand-100); }
+    .duo-card--later { background: var(--neutral-100); }
+    .duo-card-when { font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.3px; }
+    .duo-card-amount { font-size: 28px; font-weight: 700; color: var(--neutral-900); line-height: 34px; font-family: 'Noto Sans', sans-serif; }
+    .duo-card-desc { font-size: 12px; color: var(--neutral-700); line-height: 16px; }
+    .duo-card-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+    .confidence-box {
+      margin-top: 20px; padding: 16px; border-radius: 14px;
+      background: var(--positive-100); display: flex; flex-direction: column; gap: 10px;
+    }
+    .confidence-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--neutral-800); line-height: 20px;
+    }
+    .confidence-icon { color: var(--positive-600); min-width: 18px; display: flex; align-items: center; }
   </style>
 </head>
 <body>
@@ -906,15 +1001,18 @@
         <div class="content">
           <h1 class="headline">पूरा खर्चा — एक नज़र में</h1>
           <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
-          <div class="payment-card">
-            <div class="payment-item"><div class="payment-badge">अभी — विज़िट बुकिंग</div><div class="payment-row"><span class="payment-amount">₹100</span><span class="payment-dash">—</span><span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span></div></div>
-            <hr class="payment-divider">
-            <div class="payment-item"><div class="payment-badge">विज़िट के समय</div><div class="payment-row"><span class="payment-amount">₹300</span><span class="payment-dash">—</span><span class="payment-desc">नेट बॉक्स जमा राशि</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस करें → रकम वापस</div></div>
-            <hr class="payment-divider">
-            <div class="payment-item"><div class="payment-badge">बाद में — जब चाहें</div><div class="payment-row"><span class="payment-amount payment-amount--muted">₹23+</span><span class="payment-dash">—</span><span class="payment-desc">रिचार्ज (1 दिन से शुरू)</span></div><div class="payment-sub">कोई लंबा प्लान ज़रूरी नहीं — <span class="highlight">रोज़ का रिचार्ज भी चलता है</span></div></div>
+          <div class="receipt-card">
+            <div class="receipt-row">
+              <div class="receipt-left"><span class="receipt-when">अभी</span><span class="receipt-desc">इंजीनियर विज़िट बुकिंग</span></div>
+              <span class="receipt-amount">₹100</span>
+            </div>
+            <div class="receipt-row">
+              <div class="receipt-left"><span class="receipt-when">विज़िट के दिन</span><span class="receipt-desc">नेट बॉक्स जमा राशि</span><div class="refundable-badge" style="margin-top:4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस → पैसे वापस</div></div>
+              <span class="receipt-amount">₹300</span>
+            </div>
           </div>
-          <div class="info-note"><span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span></div>
-          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+          <div class="receipt-note">रिचार्ज बाद में — जब चाहें, 1, 2, 7, 14 या 28 दिन। <strong style="color:var(--positive-600)">नेट सेटअप फ़्री।</strong></div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
@@ -981,17 +1079,25 @@
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
           <h1 class="headline">शुरू करने का खर्चा</h1>
-          <p class="sub-headline">कोई छुपा हुआ चार्ज नहीं</p>
-          <div class="cost-card">
-            <div class="cost-section"><span class="cost-label">अभी</span><div class="cost-row"><span class="cost-amount">₹100</span></div><span class="cost-purpose">इंजीनियर विज़िट बुक करने के लिए</span></div>
-            <div class="cost-section"><span class="cost-label">विज़िट के समय — जमा राशि</span><div class="cost-row"><span class="cost-amount cost-amount--secondary">₹300</span><span class="cost-dash">—</span><span class="cost-desc">नेट बॉक्स के लिए</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस करें → पूरी रकम वापस</div></div>
+          <p class="sub-headline">बस दो स्टेप — कोई छुपा चार्ज नहीं</p>
+          <!-- Card 1: अभी -->
+          <div style="margin-top:20px; padding:18px 16px; background:var(--brand-100); border-radius:14px;">
+            <span style="font-size:11px; font-weight:600; color:var(--brand-600); text-transform:uppercase; letter-spacing:0.3px;">अभी</span>
+            <div style="font-size:28px; font-weight:700; color:var(--neutral-900); line-height:34px; margin-top:4px; font-family:'Noto Sans',sans-serif;">₹100</div>
+            <span style="font-size:13px; color:var(--neutral-700); line-height:18px;">इंजीनियर विज़िट बुक हो जाएगी</span>
           </div>
-          <div class="check-list">
-            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">नेट सेटअप <strong>फ़्री</strong> — कोई अलग चार्ज नहीं</span></div>
-            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">रिचार्ज <strong>बाद में</strong> — जब चाहें, जितने दिन चाहें</span></div>
-            <div class="check-item"><div class="check-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-text">कोई लंबा प्लान ज़रूरी नहीं</span></div>
+          <!-- Card 2: विज़िट के दिन -->
+          <div style="margin-top:12px; padding:18px 16px; background:var(--neutral-100); border-radius:14px;">
+            <span style="font-size:11px; font-weight:600; color:var(--neutral-500); text-transform:uppercase; letter-spacing:0.3px;">विज़िट के दिन</span>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+              <span style="font-size:28px; font-weight:700; color:var(--neutral-900); line-height:34px; font-family:'Noto Sans',sans-serif;">₹300</span>
+              <div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>रिफ़ंडेबल</div>
+            </div>
+            <span style="font-size:13px; color:var(--neutral-700); line-height:18px;">नेट बॉक्स जमा राशि — बॉक्स वापस करो → पैसे वापस</span>
           </div>
-          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">लाखों घरों में नेट लग चुका है</div></div></div></div>
+          <!-- Info strip -->
+          <div style="margin-top:16px; text-align:center; font-size:13px; color:var(--neutral-700); line-height:18px;">रिचार्ज बाद में · सेटअप फ़्री · कोई बंधन नहीं</div>
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
@@ -1057,18 +1163,25 @@
         </div>
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
-          <h1 class="headline headline--v3">बस इतना — और नेट लग जाएगा</h1>
-          <p class="sub-headline sub-headline--v3">सब कुछ सामने है, कोई बंधन नहीं</p>
-          <div class="payment-card">
-            <div class="payment-item"><div class="payment-badge">अभी — विज़िट बुकिंग</div><div class="payment-row"><span class="payment-amount">₹100</span><span class="payment-dash">—</span><span class="payment-desc">इंजीनियर विज़िट बुक करने के लिए</span></div></div>
-            <hr class="payment-divider">
-            <div class="payment-item"><div class="payment-badge">विज़िट के दिन</div><div class="payment-row"><span class="payment-amount">₹300</span><span class="payment-dash">—</span><span class="payment-desc">नेट बॉक्स जमा राशि</span></div><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>नेट बॉक्स लौटाएं → पूरे ₹300 वापस</div></div>
+          <h1 class="headline headline--v3">सब कुछ सामने है — कोई छुपा चार्ज नहीं</h1>
+          <div class="trust-card">
+            <div class="trust-card-section">
+              <div class="trust-card-icon" style="background:var(--positive-100)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <div class="trust-card-body"><span class="trust-card-amount">₹100</span><span class="trust-card-label">विज़िट बुकिंग — अभी pay करें, इंजीनियर आएंगे</span></div>
+            </div>
+            <div class="trust-card-section">
+              <div class="trust-card-icon" style="background:var(--neutral-100)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-700)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="trust-card-body"><div style="display:flex; align-items:center; gap:8px;"><span class="trust-card-amount">₹300</span><div class="refundable-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>रिफ़ंडेबल</div></div><span class="trust-card-label">जमा राशि — विज़िट के दिन · बॉक्स वापस → पैसे वापस</span></div>
+            </div>
           </div>
-          <div class="reassurance"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><span class="text">रिचार्ज बाद में — <strong>जब चाहें, जितने दिन चाहें</strong></span></div>
-          <div class="info-note"><span class="text">नेट सेटअप फ़्री है — कोई अलग चार्ज नहीं लगता।</span></div>
+          <div class="trust-reassurance">
+            <div class="trust-reassurance-item"><div class="trust-reassurance-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span>नेट सेटअप <strong>फ़्री</strong> — ~2 दिन में</span></div>
+            <div class="trust-reassurance-item"><div class="trust-reassurance-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span>रिचार्ज <strong>बाद में</strong> — 1, 2, 7, 14 या 28 दिन</span></div>
+            <div class="trust-reassurance-item"><div class="trust-reassurance-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><span>कोई सब्सक्रिप्शन नहीं — <strong>कोई बंधन नहीं</strong></span></div>
+          </div>
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
     </div>
 
@@ -1204,7 +1317,7 @@
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">सेटअप कब होगा?</button></div>
       </div>
 
-      <!-- SCREEN 5 — "सेटअप कब होगा?" / "How long do I wait?" -->
+      <!-- SCREEN 5 — The Anxiety Killer Q&A -->
       <div class="phone" data-ver="4" data-screen="4">
         <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
         <div class="top-bar">
@@ -1213,41 +1326,29 @@
         </div>
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
-          <h1 class="headline">आमतौर पर 2 दिन में नेट चालू</h1>
-          <p class="sub-headline">बुक करें → इंजीनियर आएंगे → नेट लग जाएगा</p>
-
-          <div class="v5-question">"कितने दिन लगेंगे? इंतज़ार कितना?"</div>
-
-          <div class="v5-timeline">
-            <div class="v5-timeline-item">
-              <div class="v5-timeline-marker v5-timeline-marker--brand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-              <div class="v5-timeline-body">
-                <span class="v5-timeline-day">आज</span>
-                <span class="v5-timeline-title">विज़िट बुक करें</span>
-                <span class="v5-timeline-desc">₹100 देकर बुकिंग कन्फ़र्म होती है</span>
-              </div>
+          <h1 class="headline">आपके मन में जो सवाल हैं</h1>
+          <p class="sub-headline">सब कुछ साफ़ — कोई छुपा चार्ज नहीं</p>
+          <div class="qa-block">
+            <div class="qa-card qa-card--pink">
+              <div class="qa-q">अभी कितना देना है?</div>
+              <div class="qa-a">सिर्फ़ <strong>₹100</strong> — इंजीनियर विज़िट बुक हो जाएगी</div>
             </div>
-            <div class="v5-timeline-item">
-              <div class="v5-timeline-marker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-              <div class="v5-timeline-body">
-                <span class="v5-timeline-day">1-2 दिन में</span>
-                <span class="v5-timeline-title">इंजीनियर घर आएंगे</span>
-                <span class="v5-timeline-desc">नेट बॉक्स लगाएंगे + ₹300 जमा राशि (रिफ़ंडेबल)</span>
-              </div>
+            <div class="qa-card qa-card--green">
+              <div class="qa-q">और कोई चार्ज?</div>
+              <div class="qa-a"><strong>₹300</strong> नेट बॉक्स जमा राशि, विज़िट के दिन — <strong>पूरी तरह रिफ़ंडेबल</strong><br><span style="font-size:12px; color:var(--neutral-700);">बॉक्स वापस करो → पैसे वापस</span></div>
             </div>
-            <div class="v5-timeline-item">
-              <div class="v5-timeline-marker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div>
-              <div class="v5-timeline-body">
-                <span class="v5-timeline-day">उसी दिन</span>
-                <span class="v5-timeline-title">नेट चालू हो जाएगा</span>
-                <span class="v5-timeline-desc">30 मिनट में सेटअप पूरा — फिर रिचार्ज करो, नेट चलाओ</span>
-              </div>
+            <div class="qa-card qa-card--neutral">
+              <div class="qa-q">रिचार्ज कब करना होगा?</div>
+              <div class="qa-a"><strong>बाद में</strong> — जब चाहें। 1, 2, 7, 14 या 28 दिन</div>
             </div>
           </div>
-
+          <div style="margin-top:16px; display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--neutral-700);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>नेट सेटअप फ़्री — ~2 दिन में</div>
+            <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--neutral-700);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>कोई सब्सक्रिप्शन नहीं, कोई बंधन नहीं</div>
+          </div>
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
     </div>
 
@@ -1334,7 +1435,7 @@
 
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
     </div>
 
@@ -1389,7 +1490,7 @@
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">शुरू करने के लिए क्या देना होगा?</button></div>
       </div>
 
-      <!-- SCREEN 3 — खर्चा (The One Number) -->
+      <!-- SCREEN 3 — Visual Timeline -->
       <div class="phone" data-ver="3" data-screen="2">
         <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
         <div class="top-bar">
@@ -1398,26 +1499,38 @@
         </div>
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
-
-          <div class="hero-amount-block">
-            <span class="hero-amount-kicker">आज सिर्फ़ इतना</span>
-            <div class="hero-amount">₹100</div>
-            <span class="hero-amount-purpose">इंजीनियर विज़िट बुक हो जाएगी</span>
+          <h1 class="headline">कब क्या देना है — एक नज़र</h1>
+          <p class="sub-headline">सिर्फ़ तीन स्टेप, कोई surprise नहीं</p>
+          <div class="timeline-v4">
+            <div class="timeline-v4-node">
+              <div class="timeline-v4-marker" style="background:var(--brand-600)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <div class="timeline-v4-body">
+                <span class="timeline-v4-when">आज</span>
+                <span class="timeline-v4-amount">₹100</span>
+                <span class="timeline-v4-desc">विज़िट बुकिंग — इंजीनियर आपके घर आएंगे</span>
+              </div>
+            </div>
+            <div class="timeline-v4-node">
+              <div class="timeline-v4-marker" style="background:var(--neutral-100)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="timeline-v4-body">
+                <span class="timeline-v4-when">~2 दिन में — विज़िट के दिन</span>
+                <span class="timeline-v4-amount">₹300</span>
+                <span class="timeline-v4-desc">नेट बॉक्स जमा राशि · <strong style="color:var(--positive-600)">पूरी तरह रिफ़ंडेबल</strong></span>
+              </div>
+            </div>
+            <div class="timeline-v4-node">
+              <div class="timeline-v4-marker" style="background:var(--neutral-100)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="timeline-v4-body">
+                <span class="timeline-v4-when">आपकी मर्ज़ी — बाद में</span>
+                <span style="font-size:15px; font-weight:600; color:var(--neutral-900); line-height:22px;">रिचार्ज जब चाहें</span>
+                <span class="timeline-v4-desc">1, 2, 7, 14 या 28 दिन — कोई बंधन नहीं</span>
+              </div>
+            </div>
           </div>
-
-          <div class="hero-deposit-line">
-            विज़िट के दिन <strong>₹300</strong> जमा राशि · <span class="badge">पूरी तरह रिफ़ंडेबल</span>
-          </div>
-
-          <div class="v4-doubts">
-            <div class="v4-doubt"><span class="v4-doubt-q">रिचार्ज?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>बाद में</strong> — जब चाहें</span></div>
-            <div class="v4-doubt"><span class="v4-doubt-q">सेटअप चार्ज?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>फ़्री</strong></span></div>
-            <div class="v4-doubt"><span class="v4-doubt-q">बंधन?</span><span class="v4-arrow">→</span><span class="v4-doubt-a"><strong>कोई नहीं</strong> — कभी भी बंद करें</span></div>
-          </div>
-
+          <div style="margin-top:16px; padding:10px 14px; background:var(--positive-100); border-radius:10px; font-size:13px; color:var(--neutral-800); line-height:18px; display:flex; align-items:center; gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><span>नेट सेटअप <strong>फ़्री</strong> · कोई सब्सक्रिप्शन नहीं</span></div>
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
     </div>
 
@@ -1471,7 +1584,7 @@
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">शुरू करने के लिए क्या देना होगा?</button></div>
       </div>
 
-      <!-- SCREEN 3 — Same as v6 Screen 3 -->
+      <!-- SCREEN 3 — The Confidence Builder -->
       <div class="phone" data-ver="6" data-screen="2">
         <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
         <div class="top-bar">
@@ -1480,31 +1593,29 @@
         </div>
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
-
-          <div class="v6-hero-card">
-            <span class="v6-hero-kicker">अभी सिर्फ़</span>
-            <div class="v6-hero-amount">₹100</div>
-            <div class="v6-hero-divider"></div>
-            <span class="v6-hero-purpose"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>इंजीनियर विज़िट बुक हो जाएगी</span>
+          <h1 class="headline">बस इतना — और नेट शुरू</h1>
+          <div class="duo-cards">
+            <div class="duo-card duo-card--now">
+              <span class="duo-card-when">अभी</span>
+              <span class="duo-card-amount">₹100</span>
+              <div class="duo-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <span class="duo-card-desc">विज़िट बुकिंग</span>
+            </div>
+            <div class="duo-card duo-card--later">
+              <span class="duo-card-when">बाद में</span>
+              <span class="duo-card-amount">₹300</span>
+              <div class="duo-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--positive-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <span class="duo-card-desc">जमा राशि · रिफ़ंडेबल</span>
+            </div>
           </div>
-
-          <div class="v6-deposit">
-            <span class="shield"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-            <span class="v6-deposit-text">
-              <span>नेट बॉक्स जमा राशि <strong>₹300</strong> · <span class="tag">पूरी तरह रिफ़ंडेबल</span></span>
-              <span class="v6-deposit-sub">नेट सेटअप के दिन ली जाएगी</span>
-            </span>
+          <div class="confidence-box">
+            <div class="confidence-item"><span class="confidence-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>सेटअप <strong>फ़्री</strong> — ~2 दिन में</span></div>
+            <div class="confidence-item"><span class="confidence-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>रिचार्ज बाद में — 1 से 28 दिन</span></div>
+            <div class="confidence-item"><span class="confidence-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>कोई सब्सक्रिप्शन नहीं</span></div>
           </div>
-
-          <div class="v6-doubts-card">
-            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सब्सक्रिप्शन?</span><span class="a"><strong>नहीं</strong> — सिर्फ़ बुकिंग</span></div>
-            <div class="v6-doubt-row"><span class="dot"></span><span class="q">रिचार्ज?</span><span class="a"><strong>बाद में</strong> — 1, 2, 7, 14 या 28 दिन</span></div>
-            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सेटअप?</span><span class="a"><strong>~2 दिन में</strong> · फ़्री</span></div>
-          </div>
-
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
-        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
       </div>
     </div>
 
