@@ -904,7 +904,7 @@
     }
     .duo-card--now { background: var(--neutral-100); }
     .duo-card--later { background: var(--neutral-100); }
-    .duo-card-when { font-size: 11px; font-weight: 600; color: var(--neutral-500); text-transform: uppercase; letter-spacing: 0.3px; }
+    .duo-card-when { font-size: 14px; font-weight: 700; color: var(--neutral-900); letter-spacing: 0.2px; }
     .duo-card-amount { font-size: 28px; font-weight: 700; color: var(--neutral-900); line-height: 34px; font-family: 'Noto Sans', sans-serif; }
     .duo-card-desc { font-size: 12px; color: var(--neutral-700); line-height: 16px; }
     .duo-card-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
@@ -1241,27 +1241,33 @@
         </div>
         <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
         <div class="content">
-          <h1 class="headline">आपके सवाल — सीधे जवाब</h1>
-          <p class="sub-headline">कोई छुपा चार्ज नहीं, कोई कमिटमेंट नहीं</p>
-          <div class="qa-block">
-            <div class="qa-card qa-card--neutral">
-              <div class="qa-q">अभी कितना देना है?</div>
-              <div class="qa-a">सिर्फ़ <strong>₹100</strong> — इंजीनियर विज़िट बुक हो जाएगी। ये सब्सक्रिप्शन नहीं है।</div>
+          <h1 class="headline">बस इतना देना है</h1>
+
+          <!-- अभी -->
+          <div style="margin-top:28px; display:flex; align-items:baseline; justify-content:space-between; padding-bottom:20px; border-bottom:1px solid var(--neutral-200);">
+            <div>
+              <div style="font-size:15px; font-weight:700; color:var(--neutral-900); line-height:22px;">अभी</div>
+              <div style="font-size:13px; color:var(--neutral-600); line-height:18px; margin-top:2px;">विज़िट बुकिंग</div>
             </div>
-            <div class="qa-card qa-card--neutral">
-              <div class="qa-q">और कोई चार्ज?</div>
-              <div class="qa-a"><strong>₹300</strong> नेट बॉक्स जमा राशि, विज़िट के दिन<br><span style="font-size:12px; color:var(--neutral-700);">बॉक्स वापस करो → पूरे ₹300 वापस</span></div>
-            </div>
-            <div class="qa-card qa-card--neutral">
-              <div class="qa-q">रिचार्ज कब करना होगा?</div>
-              <div class="qa-a"><strong>बाद में</strong> — जब चाहें। 1, 2, 7, 14 या 28 दिन</div>
-            </div>
-            <div class="qa-card qa-card--neutral">
-              <div class="qa-q">क्या ये कोई बंधन है?</div>
-              <div class="qa-a"><strong>बिल्कुल नहीं</strong> — पसंद नहीं आए तो बॉक्स वापस करो, पैसे वापस</div>
-            </div>
+            <div style="font-size:32px; font-weight:700; color:var(--neutral-900); line-height:38px; font-family:'Noto Sans',sans-serif;">₹100</div>
           </div>
-          <div style="margin-top:14px; padding:10px 14px; background:var(--neutral-100); border-radius:10px; font-size:13px; color:var(--neutral-800); line-height:18px; text-align:center;">नेट सेटअप <strong>फ़्री</strong> · ~2 दिन में · कोई सब्सक्रिप्शन नहीं</div>
+
+          <!-- बाद में -->
+          <div style="display:flex; align-items:baseline; justify-content:space-between; padding-top:20px; padding-bottom:20px; border-bottom:1px solid var(--neutral-200);">
+            <div>
+              <div style="font-size:15px; font-weight:700; color:var(--neutral-900); line-height:22px;">बाद में</div>
+              <div style="font-size:13px; color:var(--neutral-600); line-height:18px; margin-top:2px;">नेट बॉक्स जमा राशि</div>
+              <div class="refundable-badge" style="margin-top:4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>बॉक्स वापस → पैसे वापस</div>
+            </div>
+            <div style="font-size:32px; font-weight:700; color:var(--neutral-900); line-height:38px; font-family:'Noto Sans',sans-serif;">₹300</div>
+          </div>
+
+          <!-- Reassurance -->
+          <div style="margin-top:20px; font-size:14px; color:var(--neutral-700); line-height:22px; display:flex; flex-direction:column; gap:6px;">
+            <span>रिचार्ज बाद में — आपकी मर्ज़ी</span>
+            <span>सेटअप फ़्री · कोई बंधन नहीं</span>
+          </div>
+
           <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
         </div>
         <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">₹100 देकर विज़िट कन्फर्म करें</button></div>
