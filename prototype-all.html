@@ -880,6 +880,28 @@
       text-align: right;
     }
     .v6-doubt-row .a strong { font-weight: 600; color: var(--neutral-900); }
+
+    /* ── V7 — Actual design styles ── */
+    .v7-secondary-link {
+      text-align: center; padding: 8px 0;
+      font-size: 14px; color: var(--brand-600); font-weight: 600;
+      cursor: pointer;
+    }
+    .v7-secondary-link svg { vertical-align: middle; margin-left: 2px; }
+    .v7-banner {
+      margin-top: auto;
+      background: var(--neutral-100); padding: 16px 20px;
+      border-radius: 0;
+    }
+    .v7-banner-text {
+      font-size: 15px; font-weight: 500; line-height: 22px;
+      color: var(--neutral-900);
+    }
+    .v7-banner-link {
+      font-size: 13px; font-weight: 600; color: var(--brand-600);
+      margin-top: 4px; cursor: pointer;
+    }
+    .v7-banner-link svg { vertical-align: middle; margin-left: 2px; }
   </style>
 </head>
 <body>
@@ -945,6 +967,7 @@
       <div class="context-version-note"><strong>v4</strong> — Analogy-driven (mobile recharge जैसा)</div>
       <div class="context-version-note"><strong>v5</strong> — One question per page (5 screens, 3 anxieties)</div>
       <div class="context-version-note"><strong>v6</strong> — v5 compressed into 3 screens</div>
+      <div class="context-version-note"><strong>v7</strong> — Actual app designs (S1+S2) + v6 Screen 3</div>
     </div>
   </div>
 
@@ -959,6 +982,7 @@
     <button class="version-tab" onclick="switchVersion(3)">v4</button>
     <button class="version-tab" onclick="switchVersion(4)">v5</button>
     <button class="version-tab" onclick="switchVersion(5)">v6</button>
+    <button class="version-tab" onclick="switchVersion(6)">v7</button>
   </div>
 
   <div class="prototype-container">
@@ -1544,6 +1568,93 @@
       </div>
     </div>
 
+    <!-- ╔══════════════════════════════════════════════════════╗ -->
+    <!-- ║   VERSION 7 — Actual design S1+S2 + v6 Screen 3    ║ -->
+    <!-- ╚══════════════════════════════════════════════════════╝ -->
+    <div class="version-layer" id="ver6">
+
+      <!-- SCREEN 1 — Actual design: रिचार्ज वाला नेट ऐसे चला सकते हैं -->
+      <div class="phone active" data-ver="6" data-screen="0">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 33%"></div></div>
+        <div class="content">
+          <h1 class="headline">रिचार्ज वाला नेट ऐसे चला सकते हैं</h1>
+          <div class="steps" style="margin-top: 32px;">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">आपके घर में नेट बॉक्स लगता है</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">जब चाहें, जितने दिन चाहें रिचार्ज करें</div><div class="step-desc">बिल्कुल मोबाइल रिचार्ज की तरह</div></div></div>
+            <div class="step"><div class="step-number">3</div><div class="step-content"><div class="step-title">घर के सभी लोग चला सकते हैं</div><div class="step-desc">8-12 डिवाइस आसानी से - मोबाईल, लैपटॉप, टीवी</div></div></div>
+          </div>
+          <div class="time-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>पूरा काम 2 दिन में हो जाता है</div>
+        </div>
+        <div class="bottom-cta">
+          <button class="btn-primary" onclick="goNext()">मेरे घर पर कैसे शुरू होगा?</button>
+          <div class="v7-secondary-link">पहले से व्योम लगा हुआ है <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2 — Actual design: घर पर नेट शुरू करने के लिए -->
+      <div class="phone" data-ver="6" data-screen="1">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 66%"></div></div>
+        <div class="content" style="display: flex; flex-direction: column;">
+          <h1 class="headline">घर पर नेट शुरू करने के लिए</h1>
+          <div class="steps" style="margin-top: 32px;">
+            <div class="step"><div class="step-number">1</div><div class="step-content"><div class="step-title">व्योम की तरफ़ से आपके घर पर एक विज़िट होती है।</div></div></div>
+            <div class="step"><div class="step-number">2</div><div class="step-content"><div class="step-title">नेट बॉक्स के लिए एक सिक्युरिटी फीस होता है।</div><div class="step-desc">लौटाने पर यह रकम वापस मिल जाती है</div></div></div>
+          </div>
+          <div class="v7-banner">
+            <div class="v7-banner-text">रिचार्ज बाद में होता है, जब आप नेट चलाना चाहें।</div>
+            <div class="v7-banner-link">देखें कैसे? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          </div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary" onclick="goNext()">शुरू करने के लिए क्या देना होगा?</button></div>
+      </div>
+
+      <!-- SCREEN 3 — Same as v6 Screen 3 -->
+      <div class="phone" data-ver="6" data-screen="2">
+        <div class="status-bar"><span>04:35 PM</span><div class="icons"><span>&#9679;</span><span>&#9650;</span><span>50%</span></div></div>
+        <div class="top-bar">
+          <div class="back" onclick="goBack()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="actions"><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.87M4 21v-2a4 4 0 0 1 3-3.87"/><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/><path d="M8 21h8"/></svg></div><div class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><text x="3" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans">A</text><text x="13" y="16" font-size="11" font-weight="700" fill="currentColor" stroke="none" font-family="Noto Sans Devanagari">अ</text></svg></div></div>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="content">
+
+          <div class="v6-hero-card">
+            <span class="v6-hero-kicker">अभी सिर्फ़</span>
+            <div class="v6-hero-amount">₹100</div>
+            <div class="v6-hero-divider"></div>
+            <span class="v6-hero-purpose"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></span>इंजीनियर विज़िट बुक हो जाएगी</span>
+          </div>
+
+          <div class="v6-deposit">
+            <span class="shield"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <span class="v6-deposit-text">
+              <span>नेट बॉक्स जमा राशि <strong>₹300</strong> · <span class="tag">पूरी तरह रिफ़ंडेबल</span></span>
+              <span class="v6-deposit-sub">नेट सेटअप के दिन ली जाएगी</span>
+            </span>
+          </div>
+
+          <div class="v6-doubts-card">
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सब्सक्रिप्शन?</span><span class="a"><strong>नहीं</strong> — सिर्फ़ बुकिंग</span></div>
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">रिचार्ज?</span><span class="a"><strong>बाद में</strong> — 1, 2, 7, 14 या 28 दिन</span></div>
+            <div class="v6-doubt-row"><span class="dot"></span><span class="q">सेटअप?</span><span class="a"><strong>~2 दिन में</strong> · फ़्री</span></div>
+          </div>
+
+          <div class="social-proof"><div class="dot"></div><div class="social-proof-window"><div class="social-proof-track"><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div><div class="social-proof-item">आज 200+ विज़िट बुक हुईं</div><div class="social-proof-item">आपके एरिया में नेट उपलब्ध है</div><div class="social-proof-item">1,50,000+ घरों में नेट लग चुका है</div></div></div></div>
+        </div>
+        <div class="bottom-cta"><button class="btn-primary btn-primary--glow" onclick="goNext()">विज़िट बुक करें</button></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Screen indicator dots (generated dynamically) -->
@@ -1555,10 +1666,10 @@
 
   <script>
     var activeVersion = 0;
-    var screenIndex = [0, 0, 0, 0, 0, 0]; // track current screen per version
+    var screenIndex = [0, 0, 0, 0, 0, 0, 0]; // track current screen per version
     var transitioning = false;
 
-    var versionLabels = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6'];
+    var versionLabels = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7'];
 
     function getScreens(ver) {
       return document.querySelectorAll('[data-ver="' + ver + '"]');
